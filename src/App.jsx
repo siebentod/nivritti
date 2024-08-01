@@ -114,8 +114,10 @@ function App() {
     );
 
     const currentTime = new Date(new Date().getTime());
+    console.log(currentTime);
+    console.log(currentTimer);
     Cookies.set(currentTime, JSON.stringify(currentTimer / 60), {
-      expires: getNextWeekDate(),
+      expires: getNextWeekDate(currentTime),
       sameSite: 'strict',
       secure: true,
     });
@@ -423,14 +425,7 @@ function App() {
         <div className="chooseButtons">
           {mode === 'triangle' ? (
             <form onSubmit={inputHandle}>
-              <button
-                className="chooseTime"
-                onClick={() => {
-                  inputHandle();
-                }}
-              >
-                {manual} min
-              </button>
+              <button className="chooseTime">{manual} min</button>
               <div className="inputContainer">
                 <input
                   style={{
