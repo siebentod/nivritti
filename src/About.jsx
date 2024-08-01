@@ -28,8 +28,8 @@ function About() {
         <div className="about__main">
           <ul>
             <li>
-              Nivritti – a sanskrit word. In Vaisheshika means
-              &#34;Non-activity,&#34; but also has different meanings in other
+              Nivritti – a Sanskrit word. In Vaisheshika means
+              &#34;Non-activity,&#34; has different meanings in other
               philosophical schools and religious traditions.
             </li>
             <li>
