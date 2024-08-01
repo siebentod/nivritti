@@ -27,6 +27,7 @@ function About() {
       <div className="about">
         <div className="about__main">
           <ul>
+            <li>Simple Do-Nothing (&#34;Meditation&#34;) App.</li>
             <li>
               Nivritti – a Sanskrit word. In Vaisheshika means
               &#34;Non-activity,&#34; has different meanings in other
