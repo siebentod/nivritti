@@ -152,7 +152,7 @@ function App() {
 
     intervalRef.current = setInterval(() => {
       setTime((prevTime) => {
-        if (prevTime < 0) {
+        if (prevTime > 0) {
           return prevTime - 1;
         } else {
           clearInterval(intervalRef.current);
