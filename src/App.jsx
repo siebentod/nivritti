@@ -217,10 +217,10 @@ function App() {
   const finalTime = (time) => {
     const minutes = Math.trunc(time / 60);
     const seconds = time % 60;
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
-      2,
-      '0'
-    )}`;
+    if (seconds < 0) return '00:00';
+    return `${String(Math.round(minutes)).padStart(2, '0')}:${String(
+      Math.round(seconds)
+    ).padStart(2, '0')}`;
   };
 
   const brahmaSatyam = (
@@ -491,20 +491,41 @@ function App() {
             {/* <p>You&#39;ve held yourself:</p> You&#39;ve succeded: */}{' '}
             <p>Succesfully done nothing:</p>
             <p>
-              Today <span className="yellow">{counter.countToday}</span>{' '}
-              {counter.countToday === 1 ? 'time' : 'times'},{' '}
-              <span className="yellow">{counter.minutesToday}</span> min.
+              Today{' '}
+              <span className="yellow">
+                {Math.round(counter.countToday * 10) / 10}
+              </span>{' '}
+              {Math.round(counter.countToday * 10) / 10 === 1
+                ? 'time'
+                : 'times'}
+              ,{' '}
+              <span className="yellow">
+                {Math.round(counter.minutesToday * 10) / 10}
+              </span>{' '}
+              min.
             </p>
             <p>
               Last seven days{' '}
-              <span className="yellow">{counter.countWeek}</span>{' '}
-              {counter.countWeek === 1 ? 'time' : 'times'},{' '}
-              <span className="yellow">{counter.minutesWeek}</span> min.
+              <span className="yellow">
+                {Math.round(counter.countWeek * 10) / 10}
+              </span>{' '}
+              {Math.round(counter.countWeek * 10) / 10 === 1 ? 'time' : 'times'}
+              ,{' '}
+              <span className="yellow">
+                {Math.round(counter.minutesWeek * 10) / 10}
+              </span>{' '}
+              min.
             </p>
             <p>
-              Total <span className="yellow">{counter.countAll}</span>{' '}
-              {counter.countAll === 1 ? 'time' : 'times'},{' '}
-              <span className="yellow">{counter.minutesAll}</span> min.
+              Total{' '}
+              <span className="yellow">
+                {Math.round(counter.countAll * 10) / 10}
+              </span>{' '}
+              {Math.round(counter.countAll * 10) / 10 === 1 ? 'time' : 'times'},{' '}
+              <span className="yellow">
+                {Math.round(counter.minutesAll * 10) / 10}
+              </span>{' '}
+              min.
             </p>
           </div>
         </div>
