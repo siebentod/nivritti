@@ -27,15 +27,20 @@ function About() {
       <div className="about">
         <div className="about__main">
           <ul>
-            <li>Simple Do-Nothing (&#34;Meditation&#34;) App.</li>
             <li>
-              Nivritti – a Sanskrit word. In Vaisheshika means
-              &#34;Non-activity,&#34; has different meanings in other
-              philosophical schools and religious traditions.
+              Simple Do-Nothing, Don&#39;t-Move-Your-Mouse, &#34;Meditation&#34;
+              App.
+            </li>
+            {/* <li>Don't-move-your-mouse simple meditation app</li> */}
+            <li>
+              Nivritti is a Sanskrit word, which means &#34;Non-activity&#34; in
+              Vaisheshika, but has more meanings in other philosophical and
+              religious traditions.
             </li>
             <li>
               Yogaś-citta-vṛtti-nirodhaḥ – &#34;Yoga is the cessation of mind
-              turns,&#34; a Patanjali quote.
+              turns,&#34; a&nbsp;Patanjali quote. There are more quotes, that
+              are googleable with ease.
             </li>
             {/* <li>
               There are also more then 5 quotes that are not too hard to find on
