@@ -207,7 +207,6 @@ function App() {
     window.addEventListener('wheel', handleMouseMove);
     window.addEventListener('touchstart', handleMouseMove);
     window.addEventListener('touchmove', handleMouseMove);
-    window.addEventListener('visibilitychange', handleMouseMove);
     // window.addEventListener('click', handleMouseMove);
     el.addEventListener('mouseleave', handleMouseLeave);
     el.addEventListener('blur', handleMouseLeave);
@@ -219,7 +218,6 @@ function App() {
       window.removeEventListener('wheel', handleMouseMove);
       window.removeEventListener('touchstart', handleMouseMove);
       window.removeEventListener('touchmove', handleMouseMove);
-      window.removeEventListener('visibilitychange', handleMouseMove);
       // window.removeEventListener('click', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('blur', handleMouseLeave);
