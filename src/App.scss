@@ -126,6 +126,9 @@ main {
     left: 1dvw;
     bottom: 1dvh;
     font-size: 15px;
+    @media (max-height: 475px) {
+      display: none;
+    }
     p {
       margin: 0;
     }
