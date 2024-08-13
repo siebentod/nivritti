@@ -202,12 +202,22 @@ function App() {
 
     const el = document.querySelector('main');
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('click', handleMouseMove);
+    window.addEventListener('keydown', handleMouseMove);
+    window.addEventListener('wheel', handleMouseMove);
+    window.addEventListener('touchstart', handleMouseMove);
+    window.addEventListener('touchmove', handleMouseMove);
     // window.addEventListener('click', handleMouseMove);
     el.addEventListener('mouseleave', handleMouseLeave);
     el.addEventListener('blur', handleMouseLeave);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('click', handleMouseMove);
+      window.removeEventListener('keydown', handleMouseMove);
+      window.removeEventListener('wheel', handleMouseMove);
+      window.removeEventListener('touchstart', handleMouseMove);
+      window.removeEventListener('touchmove', handleMouseMove);
       // window.removeEventListener('click', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('blur', handleMouseLeave);
