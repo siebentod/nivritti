@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import './App.scss';
 import Cookies from 'js-cookie';
 import Modal from './Modal';
+import TriangleMode from './TriangleMode';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { yoga, wellDone, brahmaSatyam, gateParagate } from './Words';
@@ -352,28 +353,11 @@ function App() {
         </div>
         <div className="chooseButtons">
           {mode === 'triangle' ? (
-            <form onSubmit={inputHandle}>
-              <button className="chooseTime">{manual} min</button>
-              <div className="inputContainer">
-                <input
-                  style={{
-                    ...(manual <= 0 && {
-                      backgroundColor: '#4b2727',
-                    }),
-                  }}
-                  value={manual.toString()}
-                  type="number"
-                  onChange={(e) => setManual(+e.target.value)}
-                />
-              </div>
-              {/* <input
-                type="range"
-                min="0"
-                max="600"
-                value={manual}
-                onChange={(e) => setManual(e.target.value)}
-              /> */}
-            </form>
+            <TriangleMode
+              inputHandle={inputHandle}
+              manual={manual}
+              setManual={setManual}
+            />
           ) : (
             <>
               <button
