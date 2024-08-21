@@ -305,7 +305,7 @@ function App() {
       <main className={mode}>
         <div className="links">
           <div className="link link__github">
-            <a href="https://github.com/siebentod/nivritti">
+            <a href="https://github.com/siebentod/">
               Github{' '}
               <i
                 className="fa-solid fa-arrow-up-right-from-square"
