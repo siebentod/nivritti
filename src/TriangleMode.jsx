@@ -10,7 +10,9 @@ function TriangleMode({ inputHandle, manual, setManual }) {
   return (
     <div>
       <form onSubmit={inputHandle}>
-        <button className="chooseTime">{manual} min</button>
+        <button autoFocus className="chooseTime">
+          {manual} min
+        </button>
         <div className="inputContainer">
           <button type="button" className="manualSetButton" onClick={dec}>
             -

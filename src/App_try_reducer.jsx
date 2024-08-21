@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useReducer } from 'react';
 import './App.scss';
 import Cookies from 'js-cookie';
 import Modal from './Modal';
@@ -83,19 +83,94 @@ const getCounter = () => {
   return pullCounter;
 };
 
-function App() {
-  const [time, setTime] = useState(null);
-  const [currentTimer, setCurrentTimer] = useState(null);
-  const [timerState, setTimerState] = useState(null);
-  const [counter, setCounter] = useState(getCounter);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const intervalRef = useRef(null);
-  const [color, setColor] = useState('whitesmoke');
-  const [mode, setMode] = useState('triangle');
-  const [manual, setManual] = useState(2);
+// const getMode = () => {
+//   Cookies.get('mode')
+//todo
+//Нужно обрать это из очищения кук! }
 
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
+const initialState = {
+  time: null,
+  currentTimer: null,
+  timerState: null,
+  counter: getCounter,
+  modalIsOpen: false,
+  intervalRef: null,
+  color: 'whitesmoke',
+  mode: 'circle', //todo
+  manual: 7,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'modalIsOpen':
+      return {
+        ...state,
+        modalIsOpen: action.payload,
+      };
+    case 'setCounter':
+      return {
+        ...state,
+        counter: action.payload,
+      };
+    case 'setTimerState':
+      return {
+        ...state,
+        timerState: action.payload,
+      };
+    case 'setColor':
+      return {
+        ...state,
+        color: action.payload,
+      };
+    case 'getSecondTicker':
+      return {
+        ...state,
+        price2: action.payload.price2,
+        newDate2: action.payload.newDate2,
+      };
+    case 'setPrices':
+      return {
+        ...state,
+        price1: action.payload.price1,
+        newDate1: action.payload.newDate1,
+        price2: action.payload.price2,
+        newDate2: action.payload.newDate2,
+        index: action.payload.index,
+        status: 'loaded',
+      };
+    case 'status':
+      return {
+        ...state,
+        status: action.payload,
+      };
+    case 'error':
+      return {
+        ...state,
+        status: 'loadedWithError',
+        message: action.payload,
+      };
+    default:
+      throw new Error('Action unknown');
+  }
+}
+
+function App() {
+  const [
+    {
+      time,
+      currentTimer,
+      timerState,
+      counter,
+      modalIsOpen,
+      intervalRef,
+      color,
+      mode,
+      manual,
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
+  const openModal = () => dispatch({ type: 'openModal', payload: true });
+  const closeModal = () => dispatch({ type: 'openModal', payload: false });
   const handleYes = () => {
     clearCookies();
     closeModal();
@@ -128,7 +203,7 @@ function App() {
     for (const cookieName in allCookies) {
       Cookies.remove(cookieName);
     }
-    setCounter(initialCounter);
+    dispatch({ type: 'setCounter', payload: initialCounter });
   };
 
   const handleSaveCounter = () => {
@@ -141,8 +216,8 @@ function App() {
       minutesAll: +counter.minutesAll + currentTimer / 60,
     };
     saveCookies(newCounter);
-    setCounter(newCounter);
-    setTimerState(null);
+    dispatch({ type: 'setCounter', payload: newCounter });
+    dispatch({ type: 'setTimerState', payload: null });
   };
 
   const startTimer = useCallback((duration) => {
@@ -150,7 +225,20 @@ function App() {
       clearInterval(intervalRef.current);
     }
     setTime(duration);
-    setTimerState('inProcess');
+    dispatch({ type: 'setTimerState', payload: 'inProcess' });
+
+case "timer":
+  return {
+    ...state,
+    secondsRemaining: state.secondsRemaining - 1,
+    secondsRemaining: state.secondsRemaining > 0 ? state.secondsRemaining - 1 : 
+  }}
+
+  case 'timeOver':
+    return {
+      ...state,
+      
+    }
 
     intervalRef.current = setInterval(() => {
       setTime((prevTime) => {
@@ -159,7 +247,7 @@ function App() {
         } else {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
-          setTimerState('completed');
+          dispatch({ type: 'setTimerState', payload: 'completed' });
           return 0;
         }
       });
@@ -185,16 +273,16 @@ function App() {
     const handleMouseLeave = () => {
       if (timerState === 'inProcess') {
         stopTimer();
-        setColor('#1a1a1a');
+        dispatch({ type: 'setColor', payload: '#1a1a1a' });
       }
     };
 
     const handleMouseMove = () => {
       if (timerState === 'inProcess') {
         startTimer(currentTimer);
-        setColor('#1a1a1a');
+        dispatch({ type: 'setColor', payload: '#1a1a1a' });
         const timeoutId = setTimeout(() => {
-          setColor('whitesmoke');
+          dispatch({ type: 'setColor', payload: 'whitesmoke' });
         }, 1000);
         return () => clearTimeout(timeoutId);
       }
