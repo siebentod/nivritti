@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { yoga, wellDone, brahmaSatyam, gateParagate } from './Words';
 
+//Todo 1: Reducer
+//Todo 2: Переместить square в отдельный компонент вместо triangle
+
 const initialCounter = {
   countToday: '0',
   countWeek: '0',
@@ -357,6 +360,7 @@ function App() {
               inputHandle={inputHandle}
               manual={manual}
               setManual={setManual}
+              timerState={timerState}
             />
           ) : (
             <>

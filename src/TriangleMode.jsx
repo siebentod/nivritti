@@ -1,4 +1,8 @@
-function TriangleMode({ inputHandle, manual, setManual }) {
+import React, { useRef, useEffect, useState } from 'react';
+
+function TriangleMode({ inputHandle, manual, setManual, timerState }) {
+  const [isFocused, setIsFocused] = useState(true);
+
   const dec = function () {
     if (manual > 1) setManual((count) => count - 1);
   };
@@ -7,10 +11,63 @@ function TriangleMode({ inputHandle, manual, setManual }) {
     setManual((count) => count + 1);
   };
 
+  const submitHandle = function (e) {
+    e.preventDefault();
+    setIsFocused(false);
+    inputHandle(e);
+  };
+
+  // useEffect(() => {
+  //   const handleFocus = () => setIsFocused(true);
+  //   const handleBlur = () => setIsFocused(false);
+
+  //   const button = buttonRef.current;
+
+  //   if (button) {
+  //     button.addEventListener('focus', handleFocus);
+  //     button.addEventListener('blur', handleBlur);
+  //   }
+
+  //   return () => {
+  //     if (button) {
+  //       button.removeEventListener('focus', handleFocus);
+  //       button.removeEventListener('blur', handleBlur);
+  //     }
+  //   };
+  // }, []);
+
   return (
-    <div>
-      <form onSubmit={inputHandle}>
-        <button autoFocus className="chooseTime">
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      {isFocused && (
+        <p
+          style={{
+            fontStyle: 'italic',
+            fontSize: '12px',
+            margin: 'auto',
+            color: '#9ea0a3',
+            position: 'absolute',
+            transform: 'translate(0, -16px)',
+            textAlign: 'center',
+          }}
+        >
+          (You can press Space or Enter)
+        </p>
+      )}
+      <form onSubmit={submitHandle}>
+        <button
+          autoFocus
+          onBlur={() => {
+            isFocused && setIsFocused(false);
+          }}
+          className="chooseTime"
+        >
           {manual} min
         </button>
         <div className="inputContainer">
