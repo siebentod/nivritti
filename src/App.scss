@@ -35,6 +35,10 @@ main {
     align-self: end;
     place-content: center;
     margin-top: 70px;
+    &:last-child {
+      align-self: center;
+      margin: 0;
+    }
     .timer {
       font-size: 64px;
       color: whitesmoke;

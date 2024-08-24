@@ -1,8 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
+// import React, { useRef, useEffect, useState } from 'react';
 
-function TriangleMode({ inputHandle, manual, setManual, timerState }) {
-  const [isFocused, setIsFocused] = useState(true);
-
+function TriangleMode({
+  inputHandle,
+  manual,
+  setManual,
+  // timerState,
+  isFocused,
+  setIsFocused,
+}) {
   const dec = function () {
     if (manual > 1) setManual((count) => count - 1);
   };

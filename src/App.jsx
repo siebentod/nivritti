@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import Modal from './Modal';
 import TriangleMode from './TriangleMode';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 import { yoga, wellDone, brahmaSatyam, gateParagate } from './Words';
 
 //Todo 1: Reducer
@@ -96,6 +96,7 @@ function App() {
   const [color, setColor] = useState('whitesmoke');
   const [mode, setMode] = useState('triangle');
   const [manual, setManual] = useState(2);
+  const [isFocused, setIsFocused] = useState(true);
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
@@ -145,7 +146,7 @@ function App() {
     };
     saveCookies(newCounter);
     setCounter(newCounter);
-    setTimerState(null);
+    setTimerState('saved');
   };
 
   const startTimer = useCallback((duration) => {
@@ -293,36 +294,32 @@ function App() {
 
   return (
     <>
-      <Helmet>
-        <title>Nivritti</title>
-        <meta name="description" content="Simple Do-Nothing App" />
-        <meta
-          name="keywords"
-          content="Meditation, Timer, Do Nothing, Buddhism, Vaisesika, Vaisheshika, Patanjali, Yoga, Advaita Vedanta"
-        />
-      </Helmet>
       <Modal isOpen={modalIsOpen} onClose={closeModal} onYes={handleYes} />
       <main className={mode}>
-        <div className="links">
-          <div className="link link__github">
-            <a href="https://github.com/siebentod/">
-              Github{' '}
-              <i
-                className="fa-solid fa-arrow-up-right-from-square"
-                style={{ fontSize: '9px' }}
-              ></i>
-            </a>
+        {(timerState === 'completed' || timerState === 'saved') && (
+          <div className="links">
+            <div className="link link__github">
+              <a href="https://github.com/siebentod/">
+                Github{' '}
+                <i
+                  className="fa-solid fa-arrow-up-right-from-square"
+                  style={{ fontSize: '9px' }}
+                ></i>
+              </a>
+            </div>
+            <div className="link link__about">
+              <Link to="/about">About</Link>
+            </div>
           </div>
-          <div className="link link__about">
-            <Link to="/about">About</Link>
-          </div>
-        </div>
-        <ModeButtons />
+        )}
+        {(timerState === 'completed' || timerState === 'saved') && (
+          <ModeButtons />
+        )}
         <div className="timerSection">
           <div className="timer" style={textStyle}>
             {timerState === 'inProcess' ? (
               <p className="time">{finalTime(time)}</p>
-            ) : timerState === 'completed' ? (
+            ) : timerState === 'completed' || timerState === 'saved' ? (
               currentTimer === 300 ? (
                 brahmaSatyam
               ) : currentTimer === 180 ? (
@@ -354,98 +351,111 @@ function App() {
             </button>
           ) : null}
         </div>
-        <div className="chooseButtons">
-          {mode === 'triangle' ? (
-            <TriangleMode
-              inputHandle={inputHandle}
-              manual={manual}
-              setManual={setManual}
-              timerState={timerState}
-            />
-          ) : (
-            <>
-              <button
-                autoFocus
-                className="chooseTime"
-                onClick={() => {
-                  setCurrentTimer(120);
-                  startTimer(120);
-                }}
-              >
-                2 min
-              </button>
-              <button
-                className="chooseTime"
-                onClick={() => {
-                  setCurrentTimer(300);
-                  startTimer(300);
-                }}
-              >
-                5 min
-              </button>
-              <button
-                className="chooseTime"
-                onClick={() => {
-                  setCurrentTimer(600);
-                  startTimer(600);
-                }}
-              >
-                10 min
-              </button>
-            </>
-          )}
-        </div>
-        <div className="statsSection">
-          <div className="stats">
-            {timerState === 'completed' ? (
-              <button
-                className="statsButton"
-                onClick={counter !== initialCounter ? openModal : null}
-              >
-                Clear memory
-              </button>
-            ) : null}
-            {/* <p>You&#39;ve held yourself:</p> You&#39;ve succeded: */}{' '}
-            <p>Succesfully done nothing:</p>
-            <p>
-              Today{' '}
-              <span className="yellow">
-                {Math.round(counter.countToday * 10) / 10}
-              </span>{' '}
-              {Math.round(counter.countToday * 10) / 10 === 1
-                ? 'time'
-                : 'times'}
-              ,{' '}
-              <span className="yellow">
-                {Math.round(counter.minutesToday * 10) / 10}
-              </span>{' '}
-              min.
-            </p>
-            <p>
-              Last seven days{' '}
-              <span className="yellow">
-                {Math.round(counter.countWeek * 10) / 10}
-              </span>{' '}
-              {Math.round(counter.countWeek * 10) / 10 === 1 ? 'time' : 'times'}
-              ,{' '}
-              <span className="yellow">
-                {Math.round(counter.minutesWeek * 10) / 10}
-              </span>{' '}
-              min.
-            </p>
-            <p>
-              Total{' '}
-              <span className="yellow">
-                {Math.round(counter.countAll * 10) / 10}
-              </span>{' '}
-              {Math.round(counter.countAll * 10) / 10 === 1 ? 'time' : 'times'},{' '}
-              <span className="yellow">
-                {Math.round(counter.minutesAll * 10) / 10}
-              </span>{' '}
-              min.
-            </p>
+
+        {timerState !== 'inProcess' && (
+          <div className="chooseButtons">
+            {mode === 'triangle' ? (
+              <TriangleMode
+                inputHandle={inputHandle}
+                manual={manual}
+                setManual={setManual}
+                timerState={timerState}
+                isFocused={isFocused}
+                setIsFocused={setIsFocused}
+              />
+            ) : (
+              <>
+                <button
+                  autoFocus
+                  className="chooseTime"
+                  onClick={() => {
+                    setCurrentTimer(120);
+                    startTimer(120);
+                  }}
+                >
+                  2 min
+                </button>
+                <button
+                  className="chooseTime"
+                  onClick={() => {
+                    setCurrentTimer(300);
+                    startTimer(300);
+                  }}
+                >
+                  5 min
+                </button>
+                <button
+                  className="chooseTime"
+                  onClick={() => {
+                    setCurrentTimer(600);
+                    startTimer(600);
+                  }}
+                >
+                  10 min
+                </button>
+              </>
+            )}
           </div>
-        </div>
+        )}
+
+        {(timerState === 'completed' || timerState === 'saved') && (
+          <div className="statsSection">
+            <div className="stats">
+              {timerState === 'completed' || timerState === 'saved' ? (
+                <button
+                  className="statsButton"
+                  onClick={counter !== initialCounter ? openModal : null}
+                >
+                  Clear memory
+                </button>
+              ) : null}
+              {/* <p>You&#39;ve held yourself:</p> You&#39;ve succeded: */}{' '}
+              <p>Succesfully done nothing:</p>
+              <p>
+                Today{' '}
+                <span className="yellow">
+                  {Math.round(counter.countToday * 10) / 10}
+                </span>{' '}
+                {Math.round(counter.countToday * 10) / 10 === 1
+                  ? 'time'
+                  : 'times'}
+                ,{' '}
+                <span className="yellow">
+                  {Math.round(counter.minutesToday * 10) / 10}
+                </span>{' '}
+                min.
+              </p>
+              <p>
+                Last seven days{' '}
+                <span className="yellow">
+                  {Math.round(counter.countWeek * 10) / 10}
+                </span>{' '}
+                {Math.round(counter.countWeek * 10) / 10 === 1
+                  ? 'time'
+                  : 'times'}
+                ,{' '}
+                <span className="yellow">
+                  {Math.round(counter.minutesWeek * 10) / 10}
+                </span>{' '}
+                min.
+              </p>
+              <p>
+                Total{' '}
+                <span className="yellow">
+                  {Math.round(counter.countAll * 10) / 10}
+                </span>{' '}
+                {Math.round(counter.countAll * 10) / 10 === 1
+                  ? 'time'
+                  : 'times'}
+                ,{' '}
+                <span className="yellow">
+                  {Math.round(counter.minutesAll * 10) / 10}
+                </span>{' '}
+                min.
+              </p>
+            </div>
+          </div>
+        )}
       </main>
     </>
   );
