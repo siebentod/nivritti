@@ -53,7 +53,7 @@ function TriangleMode({
       {isFocused && (
         <p
           style={{
-            fontStyle: 'italic',
+            fontWeight: '300',
             fontSize: '12px',
             margin: 'auto',
             color: '#9ea0a3',
