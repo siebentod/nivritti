@@ -54,7 +54,7 @@ function TriangleMode({
         <p
           style={{
             fontWeight: '300',
-            fontSize: '12px',
+            fontSize: '13px',
             margin: 'auto',
             color: '#9ea0a3',
             position: 'absolute',
