@@ -14,6 +14,18 @@ $light-button-hover: rgb(86, 85, 85);
   z-index: 5;
 }
 
+@keyframes slide-up-fade-in {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transfrom: translateY(0);
+    opacity: 1;
+  }
+}
+
 .modal {
   color: white;
   background-color: #242424;
@@ -26,6 +38,7 @@ $light-button-hover: rgb(86, 85, 85);
   justify-content: center;
   align-items: center;
   z-index: 9;
+  animation: slide-up-fade-in 0.15s ease-out forwards;
 
   h2 {
     text-align: center;
