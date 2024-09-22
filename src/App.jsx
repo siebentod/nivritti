@@ -97,6 +97,7 @@ function App() {
   const [mode, setMode] = useState('triangle');
   const [manual, setManual] = useState(2);
   const [isFocused, setIsFocused] = useState(true);
+  const buttonRef = useRef(null);
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
@@ -164,6 +165,7 @@ function App() {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
           setTimerState('completed');
+          buttonRef.current.focus();
           return 0;
         }
       });
@@ -348,8 +350,8 @@ function App() {
           {timerState === 'completed' ? (
             <button
               className="saveResult"
-              autoFocus
               onClick={handleSaveCounter}
+              ref={buttonRef}
             >
               Save in memory
             </button>
