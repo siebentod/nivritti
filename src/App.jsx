@@ -346,7 +346,11 @@ function App() {
             )}
           </div>
           {timerState === 'completed' ? (
-            <button className="saveResult" onClick={handleSaveCounter}>
+            <button
+              className="saveResult"
+              autoFocus
+              onClick={handleSaveCounter}
+            >
               Save in memory
             </button>
           ) : null}
