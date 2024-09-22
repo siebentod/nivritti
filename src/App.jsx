@@ -165,12 +165,17 @@ function App() {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
           setTimerState('completed');
-          buttonRef.current.focus();
           return 0;
         }
       });
     }, 1000);
   }, []);
+
+  useEffect(() => {
+    if (timerState === 'completed') {
+      buttonRef.current.focus();
+    }
+  }, [timerState]);
 
   const stopTimer = useCallback(() => {
     if (intervalRef.current) {
