@@ -66,6 +66,9 @@ main {
       &:hover {
         border: 1px solid $light-button-hover;
       }
+      &:focus {
+        outline: 1px solid darkgray;
+      }
     }
   }
 

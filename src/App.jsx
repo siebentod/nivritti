@@ -409,7 +409,8 @@ function App() {
           </div>
         )}
 
-        {(timerState === 'completed' || timerState === 'saved') && (
+        {/* {(timerState === 'completed' || timerState === 'saved') && ( */}
+        {timerState !== 'inProcess' && (
           <div className="statsSection">
             <div className="stats">
               {timerState === 'completed' || timerState === 'saved' ? (
