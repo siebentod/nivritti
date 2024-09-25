@@ -39,8 +39,8 @@ function About() {
             </li>
             <li>
               Yogaś-citta-vṛtti-nirodhaḥ – &#34;Yoga is the cessation of mind
-              turns,&#34; a&nbsp;Patanjali quote. There are more quotes, that
-              are googleable with ease.
+              turns,&#34; a&nbsp;Patanjali quote. There are more quotes
+              obtainable.
             </li>
             {/* <li>
               There are also more then 5 quotes that are not too hard to find on

@@ -303,7 +303,7 @@ function App() {
     <>
       <Modal isOpen={modalIsOpen} onClose={closeModal} onYes={handleYes} />
       <main className={mode}>
-        {(timerState === 'completed' || timerState === 'saved') && (
+        {timerState !== 'inProcess' && (
           <div className="links">
             <div className="link link__github">
               <a href="https://github.com/siebentod/">
