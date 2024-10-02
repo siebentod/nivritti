@@ -1,11 +1,14 @@
+'use client';
+
 import { useState, useEffect, useCallback, useRef } from 'react';
 import './App.scss';
 import Cookies from 'js-cookie';
 import Modal from './Modal';
-import TriangleMode from './TriangleMode';
+import TriangleMode from '../src/TriangleMode';
 import { Link } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
-import { yoga, wellDone, brahmaSatyam, gateParagate } from './Words';
+import { yoga, wellDone, brahmaSatyam, gateParagate } from '../src/Words';
+import { finalTime } from 'finalTime';
 
 //Todo 1: Reducer
 //Todo 2: Переместить square в отдельный компонент вместо triangle
@@ -219,7 +222,6 @@ function App() {
     window.addEventListener('touchstart', handleMouseMove);
     window.addEventListener('touchmove', handleMouseMove);
     window.addEventListener('visibilitychange', handleMouseMove);
-    // window.addEventListener('click', handleMouseMove);
     el.addEventListener('mouseleave', handleMouseLeave);
     el.addEventListener('blur', handleMouseLeave);
 
@@ -231,20 +233,10 @@ function App() {
       window.removeEventListener('touchstart', handleMouseMove);
       window.removeEventListener('touchmove', handleMouseMove);
       window.removeEventListener('visibilitychange', handleMouseMove);
-      // window.removeEventListener('click', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('blur', handleMouseLeave);
     };
   }, [timerState, currentTimer, startTimer, stopTimer]);
-
-  const finalTime = (time) => {
-    const minutes = Math.trunc(time / 60);
-    const seconds = time % 60;
-    if (seconds < 0) return '00:00';
-    return `${String(Math.round(minutes)).padStart(2, '0')}:${String(
-      Math.round(seconds)
-    ).padStart(2, '0')}`;
-  };
 
   const textStyle = {
     color: color,

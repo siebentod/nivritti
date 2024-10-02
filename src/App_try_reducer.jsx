@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useReducer } from 'react';
 import './App.scss';
 import Cookies from 'js-cookie';
-import Modal from './Modal';
+import Modal from '../app/Modal';
 import TriangleMode from './TriangleMode';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
