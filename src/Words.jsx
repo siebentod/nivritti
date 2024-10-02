@@ -36,7 +36,5 @@ export const wellDone = (
   <p style={{ fontSize: '62px', lineHeight: '1.1' }}>Well Done!</p>
 );
 export const yoga = (
-  <p style={{ fontSize: '48px', lineHeight: '1.1' }}>
-    Yogaś-citta-vṛtti-nirodhaḥ
-  </p>
+  <p style={{ lineHeight: '1.1' }}>Yogaś-citta-vṛtti-nirodhaḥ</p>
 );
