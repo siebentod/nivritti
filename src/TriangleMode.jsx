@@ -56,7 +56,7 @@ function TriangleMode({
             fontWeight: '300',
             fontSize: '13px',
             margin: 'auto',
-            color: '#9ea0a3',
+            color: 'rgb(106, 105, 105)',
             position: 'absolute',
             transform: 'translate(0, -16px)',
             textAlign: 'center',

@@ -38,8 +38,10 @@ input {
 :root {
   font-family: GeistVF, Inter, Calibri, Verdana, system-ui, Avenir, Helvetica,
     Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #1a1a1a;
 }
 
 main {
@@ -61,6 +63,8 @@ main {
     .timer {
       font-family: Inter, Calibri, Verdana, system-ui, Avenir, Helvetica, Arial,
         sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       font-size: 58px;
       color: whitesmoke;
       p {
@@ -68,7 +72,7 @@ main {
       }
       .time {
         font-size: 80px;
-        font-family: GeistVF, Inter, Calibri, Verdana, system-ui, Avenir,
+        font-family: GeistMonoVF, Inter, Calibri, Verdana, system-ui, Avenir,
           Helvetica, Arial, sans-serif;
       }
       @media (max-width: 900px) {
@@ -112,7 +116,7 @@ main {
       margin: 2px;
       font-size: 20px;
       padding: 1rem 4rem;
-      background-color: #1a1a1a;
+      background-color: #242424;
       box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.1),
         0 1px 2px 0 rgba(0, 0, 0, 0.2);
       &:focus {
@@ -162,7 +166,7 @@ main {
       }
       .manualSetButton {
         margin: 0 1px;
-        background-color: #1a1a1a;
+        background-color: #242424;
         padding: 0 0 1px 0;
         height: 100%;
         width: 2ch;

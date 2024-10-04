@@ -196,14 +196,14 @@ function App() {
     const handleMouseLeave = () => {
       if (timerState === 'inProcess') {
         stopTimer();
-        setColor('#1a1a1a');
+        setColor('#171717');
       }
     };
 
     const handleMouseMove = () => {
       if (timerState === 'inProcess') {
         startTimer(currentTimer);
-        setColor('#1a1a1a');
+        setColor('#171717');
         const timeoutId = setTimeout(() => {
           setColor('whitesmoke');
         }, 1000);
@@ -248,7 +248,7 @@ function App() {
 
   const textStyle = {
     color: color,
-    transition: color === '#1a1a1a' ? 'none' : 'color 1s ease-in',
+    transition: color === '#171717' ? 'none' : 'color 1s ease-in',
   };
 
   function ModeButtons() {
