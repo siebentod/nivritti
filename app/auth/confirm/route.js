@@ -1,4 +1,3 @@
-// import { moveDataFromCookiesAfterRegistration } from '@/app/_lib/apiSupabase';
 import { createClient } from '../../_lib/supabase/server';
 import { redirect } from 'next/navigation';
 
@@ -11,7 +10,7 @@ export async function GET(request) {
   const next = searchParams.get('next') ?? '/';
 
   if (token_hash && type) {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const { error } = await supabase.auth.verifyOtp({
       type,

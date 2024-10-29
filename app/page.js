@@ -6,7 +6,7 @@ import Links from './_components/Links';
 // const session = await auth();
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data } = await supabase.auth.getUser();
   // if (error || !data?.user) {

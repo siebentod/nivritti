@@ -1,39 +1,40 @@
 {
-  "name": "my-next-app",
+  "name": "nivritti",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "react": "19.0.0-rc-69d4b800-20241021",
+    "next": "15.0.1",
+    "next-auth": "^5.0.0-beta.22",
+    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "sass": "^1.79.4",
+    "styled-components": "^6.1.13",
+    "zustand": "^5.0.0-rc.2",
     "@heroicons/react": "^2.1.5",
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.45.4",
-    "@tanstack/react-query": "^5.59.6",
-    "@tanstack/react-query-devtools": "^5.59.6",
     "js-cookie": "^3.0.5",
-    "next": "14.2.14",
-    "next-auth": "^5.0.0-beta.22",
-    "react": "^18.3.1",
     "react-calendar-heatmap": "^1.9.0",
-    "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
-    "react-hot-toast": "^2.4.1",
-    "sass": "^1.79.4",
-    "styled-components": "^6.1.13",
-    "zustand": "^5.0.0-rc.2"
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.11",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
     "daisyui": "^4.12.13",
     "eslint": "^8",
-    "eslint-config-next": "14.2.14",
+    "eslint-config-next": "15.0.1",
     "eslint-plugin-react-refresh": "^0.4.12",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsconfig-paths": "^4.2.0"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1"
   }
 }

@@ -19,7 +19,7 @@ export async function getUser() {
 }
 
 export async function login(formData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // you should validate your inputs
   const data = {

@@ -13,23 +13,17 @@ export async function GET(request) {
   const next = searchParams.get('next') ?? '/?oauth=success';
 
   if (code) {
-    console.log('test 0.0');
-    const supabase = createClient();
+    const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      console.log('test 0.1');
       const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === 'development';
       if (isLocalEnv) {
         // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
-        console.log('test1');
-        console.log(origin, next);
         return NextResponse.redirect(`${origin}${next}`);
       } else if (forwardedHost) {
-        console.log('test2');
         return NextResponse.redirect(`https://${forwardedHost}${next}`);
       } else {
-        console.log('test3');
         return NextResponse.redirect(`${origin}${next}`);
       }
       //   return NextResponse.redirect('/?registration=success');

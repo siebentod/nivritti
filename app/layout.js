@@ -33,7 +33,7 @@ const font = Inter({
 // }
 
 export default async function RootLayout({ children }) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data } = await supabase.auth.getUser();
   // if (error || !data?.user) {
