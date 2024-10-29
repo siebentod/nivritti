@@ -1,10 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
 import { arrayOfZeros, isLeapYear } from '../_utils/arrayOfZeros';
-
-// const origin = headers().get('origin') + '/auth/callback';
-const origin = 'http://localhost:3000/auth/callback';
-console.log('origin', origin);
+import { headers } from 'next/headers';
 
 export async function getUser() {
   const supabase = await createClient();
@@ -13,6 +10,10 @@ export async function getUser() {
 }
 
 export async function signInWithOAuth(provider) {
+  const origin = (await headers().get('origin')) + '/auth/callback';
+  // const origin = 'http://localhost:3000/auth/callback';
+  console.log('origin', origin);
+
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
