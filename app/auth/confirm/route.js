@@ -22,7 +22,7 @@ export async function GET(request) {
   }
 
   if (code) {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer

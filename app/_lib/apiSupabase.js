@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
 import { arrayOfZeros, isLeapYear } from '../_utils/arrayOfZeros';
 
-const supabase = createClient();
+const supabase = await createClient();
 
 // const origin = headers().get('origin') + '/auth/callback';
 const origin = 'http://localhost:3000/auth/callback';

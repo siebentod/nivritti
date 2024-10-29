@@ -36,7 +36,7 @@ export async function login(formData) {
 }
 
 export async function signup(formData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const userData = {
     email: formData.email,
@@ -62,7 +62,7 @@ export async function signup(formData) {
 }
 
 export async function logout() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
   if (error) {
     redirect('/error');
