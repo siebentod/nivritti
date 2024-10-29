@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'GeistVF';
+  src: url('./_fonts/GeistVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GeistVFMono';
+  src: url('./_fonts/GeistMonoVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'monofonto';
+  src: url('./_fonts/monofonto.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoMono';
+  src: url('./_fonts/NotoMono-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  /* background-color: #18231c; */
+  /* background-color: #17201b; */
+  background-color: #0a0a0a;
+  color: white;
+}
+
+body {
+  font-family: GeistVF, Inter, Calibri, Verdana, system-ui, Avenir, Helvetica,
+    Arial, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply font-semibold text-zinc-100 bg-mydark focus:outline-1 focus:outline-[#222c35] hover:shadow-[0_0_0_1px_#292929];
+  }
+  .auth-input {
+    @apply bg-gray-700 text-zinc-50 focus-visible:ring-zinc-800 transition ease-in-out duration-200 placeholder:text-zinc-500 h-10 rounded-md px-3 text-base sm:text-sm data-[state="read-only"]:cursor-default data-[state="read-only"]:border-zinc-500 data-[state="read-only"]:bg-zinc-800 data-[state="read-only"]:text-zinc-900 relative w-full pl-1.5 pr-1.5 outline-none focus-visible:ring-2;
+  }
+  .auth-button {
+    @apply mt-1.5 relative inline-flex items-center justify-center w-full h-10 gap-1 pl-4 pr-4 text-sm font-semibold  transition duration-200 ease-in-out border rounded-md cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-70 bg-mydark text-white border-mydark hover:border-myhover btn-primary;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.05s ease-out forwards;
+}

@@ -1,0 +1,62 @@
+$light-button: rgb(66, 65, 65);
+$light-button-hover: rgb(86, 85, 85);
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+@keyframes slide-up-fade-in {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transfrom: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal {
+  color: white;
+  background-color: #242424;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: slide-up-fade-in 0.15s ease-out forwards;
+
+  h2 {
+    text-align: center;
+  }
+
+  .modal__buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    color: rgba(0, 0, 0, 0.3);
+    button {
+      padding: 10px 25px;
+      background-color: #1a1a1a;
+      box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.2);
+      &:hover {
+        box-shadow: 0 0 0 1px #292929;
+      }
+    }
+  }
+}

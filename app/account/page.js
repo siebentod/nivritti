@@ -1,0 +1,33 @@
+import SignOutButton from './SignOutButton';
+import { redirect } from 'next/navigation';
+import AccountStats from './AccountStats';
+
+import { createClient } from '../_lib/supabase/server';
+import BackButton from '../_components/ui/BackButton';
+import LoggedAs from './LoggedAs';
+
+// OLD const session = await auth();
+// const user_id = session.user.user_id;
+
+export default async function Page() {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect('/');
+  }
+  // console.log(data.user);
+
+  return (
+    <>
+      <BackButton />
+      <div className="text-center right-2 top-2 text-sm px-4 py-2.5 sm:relative md:fixed md:bg-zinc-800 md:border md:border-mydark rounded-lg">
+        <LoggedAs data={data} />
+        <SignOutButton />
+      </div>
+      <div className="grid min-h-screen">
+        <AccountStats user_id={data.user.id} />
+      </div>
+    </>
+  );
+}
