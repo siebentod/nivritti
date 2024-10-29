@@ -1,5 +1,5 @@
 import { Providers } from './Providers';
-import localFont from 'next/font/local';
+// import localFont from 'next/font/local';
 import './globals.css';
 import { createClient } from './_lib/supabase/server';
 // import { auth } from './_lib/auth';
@@ -16,16 +16,16 @@ const font = Inter({
   weight: ['400'],
 });
 
-const geistSans = localFont({
-  src: './_fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './_fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
+// const geistSans = localFont({
+//   src: './_fonts/GeistVF.woff',
+//   variable: '--font-geist-sans',
+//   weight: '100 900',
+// });
+// const geistMono = localFont({
+//   src: './_fonts/GeistMonoVF.woff',
+//   variable: '--font-geist-mono',
+//   weight: '100 900',
+// });
 
 // let singulars, totals;
 // if (session) {
@@ -35,7 +35,7 @@ const geistMono = localFont({
 export default async function RootLayout({ children }) {
   const supabase = createClient();
 
-  const { data, error } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
   // if (error || !data?.user) {
   //   redirect('/');
   // }

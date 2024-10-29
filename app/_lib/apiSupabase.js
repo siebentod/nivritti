@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
-import { cookies, headers } from 'next/headers';
 import { arrayOfZeros, isLeapYear } from '../_utils/arrayOfZeros';
 
 const supabase = createClient();

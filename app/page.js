@@ -8,7 +8,7 @@ import Links from './_components/Links';
 export default async function Page() {
   const supabase = createClient();
 
-  const { data, error } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
   // if (error || !data?.user) {
   //   redirect('/');
   // }
