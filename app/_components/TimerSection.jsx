@@ -85,7 +85,7 @@ function TimerSection({
         style={timerColor}
       >
         {timerState === 'inProcess' ? (
-          <p className="time text-7xl">{finalTime(time)}</p>
+          <p className="time text-7xl select-none">{finalTime(time)}</p>
         ) : timerState === 'completed' || timerState === 'saved' ? (
           currentTimer === 300 ? (
             brahmaSatyam
