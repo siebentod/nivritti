@@ -1,10 +1,10 @@
-import SignOutButton from './SignOutButton';
 import { redirect } from 'next/navigation';
-import AccountStats from './AccountStats';
 
 import { createClient } from '../_lib/supabase/server';
 import BackButton from '../_components/ui/BackButton';
 import LoggedAs from './LoggedAs';
+import SignOutButton from './SignOutButton';
+import AccountStats from './AccountStats';
 
 // OLD const session = await auth();
 // const user_id = session.user.user_id;
