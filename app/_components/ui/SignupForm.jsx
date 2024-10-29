@@ -9,18 +9,18 @@ import { useForm } from 'react-hook-form';
 import { signup } from '@/app/_lib/actions';
 import { signInWithOAuth } from '@/app/_lib/actions';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 function SignupForm() {
+  const [isOAuthSubmitting, setIsOAuthSubmitting] = useState(false);
   const {
     register,
     formState: { isSubmitting, errors },
     getValues,
     handleSubmit,
   } = useForm();
-  console.log('isSubmitting', isSubmitting);
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // 2-секундная задержка
     await signup(data);
     // if (error) {
     //   setError('root', {
@@ -30,6 +30,7 @@ function SignupForm() {
   };
 
   const handleOAth = async (provider) => {
+    setIsOAuthSubmitting(true);
     const allCookies = Cookies.get();
     for (const cookieName in allCookies) {
       if (cookieName.includes('auth-token-code-verifier'))
@@ -59,7 +60,7 @@ function SignupForm() {
                 type="username"
                 id="username"
                 placeholder="user"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isOAuthSubmitting}
                 {...register('username', {
                   required: 'Username is required',
                   minLength: {
@@ -83,7 +84,7 @@ function SignupForm() {
                 type="email"
                 id="email"
                 placeholder="user@example.com"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isOAuthSubmitting}
                 {...register('email', {
                   required: 'This field is required',
                   pattern: {
@@ -106,7 +107,7 @@ function SignupForm() {
                 type="password"
                 id="password"
                 placeholder="••••••••••••"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isOAuthSubmitting}
                 {...register('password', {
                   required: 'This field is required',
                   minLength: {
@@ -130,7 +131,7 @@ function SignupForm() {
                 type="password"
                 id="passwordConfirm"
                 placeholder="••••••••••••"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isOAuthSubmitting}
                 {...register('passwordConfirm', {
                   required: 'This field is required',
                   validate: (value) =>
@@ -146,7 +147,7 @@ function SignupForm() {
             <button
               type="submit"
               className="auth-button"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isOAuthSubmitting}
             >
               <span className="inline-flex items-center justify-center visible gap-1 truncate">
                 {isSubmitting ? 'Signing up...' : 'Register'}
@@ -162,7 +163,7 @@ function SignupForm() {
               }}
               className="w-full"
             >
-              <GithubButton isSubmitting={isSubmitting}>
+              <GithubButton isSubmitting={isSubmitting || isOAuthSubmitting}>
                 Sign up with GitHub
               </GithubButton>
             </form>
@@ -173,7 +174,7 @@ function SignupForm() {
               }}
               className="w-full"
             >
-              <GoogleButton isSubmitting={isSubmitting}>
+              <GoogleButton isSubmitting={isSubmitting || isOAuthSubmitting}>
                 Sign up with Google
               </GoogleButton>
             </form>
