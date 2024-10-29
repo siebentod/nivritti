@@ -16,7 +16,6 @@ export default async function Page() {
   if (error || !data?.user) {
     redirect('/');
   }
-  // console.log(data.user);
 
   return (
     <>

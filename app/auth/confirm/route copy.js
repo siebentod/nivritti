@@ -1,5 +1,5 @@
 import { createClient } from '../../_lib/supabase/server';
-import { NextResponse } from 'next/server';
+import { redirect } from 'next/navigation';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -17,7 +17,7 @@ export async function GET(request) {
       token_hash,
     });
     if (!error) {
-      NextResponse.redirect('/?registration=success');
+      redirect('/?registration=success');
     }
   }
 
@@ -29,14 +29,14 @@ export async function GET(request) {
       const isLocalEnv = process.env.NODE_ENV === 'development';
       if (isLocalEnv) {
         // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
-        return NextResponse.redirect(`${origin}${next}`);
+        return redirect(`${origin}${next}`);
       } else if (forwardedHost) {
-        return NextResponse.redirect(`http://${forwardedHost}${next}`);
+        return redirect(`http://${forwardedHost}${next}`);
       } else {
-        return NextResponse.redirect(`${origin}${next}`);
+        return redirect(`${origin}${next}`);
       }
     }
   }
 
-  NextResponse.redirect(`${origin}/?error=error`);
+  redirect(`${origin}/?error=error`);
 }
