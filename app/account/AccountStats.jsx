@@ -6,9 +6,6 @@ import ResetAllStats from './ResetAllStats';
 
 function AccountStats({ user_id }) {
   const counter = usePageStore((state) => state.counter);
-  const mode = usePageStore((state) => state.mode);
-  if (mode === 'cookies') return;
-  // console.log('counter', counter);
 
   return (
     <>

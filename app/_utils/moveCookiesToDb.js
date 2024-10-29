@@ -26,5 +26,13 @@ export const moveDataToDb = async (user_id) => {
   const { totalsError, singularsError, cookiesWereTransferred } =
     await moveDataFromCookiesAfterRegistration(totals, singulars, user_id);
 
-  return { singulars, total_mins, total_count, streak, cookiesWereTransferred };
+  return {
+    singulars,
+    total_mins,
+    total_count,
+    streak,
+    cookiesWereTransferred,
+    totalsError,
+    singularsError,
+  };
 };

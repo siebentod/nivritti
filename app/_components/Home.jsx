@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import './Home.scss';
-import ModeButtons from './ModeButtons';
 import TimeButtons from './TimeButtons';
 import TimerSection from './TimerSection';
 import StatsSection from './StatsSection';
@@ -20,7 +19,7 @@ function Home({ children, user_id }) {
   const [currentTimer, setCurrentTimer] = useState(null); // выбранный таймер
   const [manualTime, setManualTime] = useState(2); // время в инпуте
 
-  const [mode, setMode] = useState('triangle');
+  // const [mode, setMode] = useState('triangle');
   const [isFocused, setIsFocused] = useState(true);
 
   const startTimer = useCallback((duration) => {
@@ -128,7 +127,7 @@ function Home({ children, user_id }) {
           },
         }}
       />
-      <main className={`${mode} grid h-full relative`}>
+      <main className={`grid h-full relative`}>
         {timerState !== 'inProcess' && (
           <>
             {children}
@@ -155,7 +154,6 @@ function Home({ children, user_id }) {
             setIsFocused={setIsFocused}
             inputHandle={inputHandle}
             setCurrentTimer={setCurrentTimer}
-            mode={mode}
             startTimer={startTimer}
             isFocused={isFocused}
           />
