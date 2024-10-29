@@ -1,4 +1,5 @@
 import BackButton from '../_components/ui/BackButton';
+import { FaGithub } from 'react-icons/fa';
 
 export default function Page() {
   return (
@@ -33,6 +34,15 @@ export default function Page() {
               donothingfor2minutes.com
             </a>
             .
+          </li>
+          <li>
+            Github:{' '}
+            <a
+              href="https://github.com/siebentod"
+              className="underline hover:text-[#c2c9d6] inline-flex items-center gap-0.5"
+            >
+              siebentod <FaGithub height={14} />
+            </a>
           </li>
         </ul>
       </div>

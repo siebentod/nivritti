@@ -8,7 +8,7 @@ export default function Links({ user_id }) {
         {!user_id ? (
           <>
             <div className="flex">
-              <div className="border-b pb-1 border-gray-300 px-0.5 text-center">
+              <div className="border-b pb-1 border-gray-300 px-1 text-center">
                 <Link
                   className="hover:text-zinc-200 active:text-zinc-400 flex gap-0.5 justify-center"
                   href="/signin"
@@ -19,7 +19,7 @@ export default function Links({ user_id }) {
               <div className="border-b pb-1 border-gray-300 text-center">
                 <UserIcon height={14} />
               </div>
-              <div className="border-b pb-1 border-gray-300 px-0.5 text-center">
+              <div className="border-b pb-1 border-gray-300 px-0.5 pl-1 text-center">
                 <Link
                   className="hover:text-zinc-200 active:text-zinc-400 flex gap-0.5 justify-center"
                   href="/signup"
