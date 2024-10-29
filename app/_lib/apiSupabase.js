@@ -2,18 +2,18 @@ import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
 import { arrayOfZeros, isLeapYear } from '../_utils/arrayOfZeros';
 
-const supabase = await createClient();
-
 // const origin = headers().get('origin') + '/auth/callback';
 const origin = 'http://localhost:3000/auth/callback';
 console.log('origin', origin);
 
 export async function getUser() {
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
   return { data, error };
 }
 
 export async function signInWithOAuth(provider) {
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
@@ -53,6 +53,7 @@ export async function signInWithOAuth(provider) {
 // }
 
 export async function updateData(mins, user_id) {
+  const supabase = await createClient();
   // #combine (get totals + increment streak) + get singulars
   let [
     { data: totals, error: totalsError },
@@ -86,6 +87,7 @@ export async function moveDataFromCookiesAfterRegistration(
   singulars,
   user_id
 ) {
+  const supabase = await createClient();
   // The Check!
   let cookiesWereTransferred = false;
   const { data, error } = await supabase
@@ -132,6 +134,7 @@ export async function moveDataFromCookiesAfterRegistration(
 }
 
 export async function getData(user_id) {
+  const supabase = await createClient();
   console.log('start getData');
   console.log('user_id', user_id);
   const [
@@ -154,6 +157,7 @@ export async function getData(user_id) {
 }
 
 export async function clearData(user_id) {
+  const supabase = await createClient();
   console.log('arr', arrayOfZeros.length);
   const data = await Promise.all([
     supabase.from('singulars').delete().eq('user_id', user_id),
@@ -173,6 +177,7 @@ export async function clearData(user_id) {
 }
 
 export async function OLDupdateData(mins, user_id) {
+  const supabase = await createClient();
   const her = await supabase
     .from('singulars')
     .insert({ mins, user_id })

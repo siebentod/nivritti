@@ -6,9 +6,6 @@ import LoggedAs from './LoggedAs';
 import SignOutButton from './SignOutButton';
 import AccountStats from './AccountStats';
 
-// OLD const session = await auth();
-// const user_id = session.user.user_id;
-
 export default async function Page() {
   const supabase = await createClient();
 
