@@ -37,27 +37,6 @@ function Home({ children, user_id }) {
   // const [mode, setMode] = useState('triangle');
   const [isFocused, setIsFocused] = useState(true);
 
-  const tryToPushDataFromCookies = useCallback(async function (
-    user_id,
-    setCounter
-  ) {
-    const { singulars, totals, cookiesWereTransferred } = await moveDataToDb(
-      user_id
-    );
-    if (cookiesWereTransferred) {
-      setCounter(
-        getDataNumbers(
-          singulars,
-          totals.total_mins,
-          totals.total_count,
-          totals.streak
-        )
-      );
-      console.log('Cookies were transferred');
-    }
-  },
-  []);
-
   const fetchAndProcessData = useCallback(
     async function (user_id) {
       const { singulars, totals } = await getData(user_id);
@@ -83,6 +62,25 @@ function Home({ children, user_id }) {
   }, [fetchAndProcessData, setCounter, user_id]);
 
   useEffect(() => {
+    const tryToPushDataFromCookies = async (user_id) => {
+      console.log('test0');
+      const { singulars, totals, cookiesWereTransferred } = await moveDataToDb(
+        user_id
+      );
+      console.log('num', singulars, totals, cookiesWereTransferred);
+      if (cookiesWereTransferred) {
+        setCounter(
+          getDataNumbers(
+            singulars,
+            totals.total_mins,
+            totals.total_count,
+            totals.streak
+          )
+        );
+        console.log('Cookies were transferred');
+      }
+    };
+
     if (searchParams.get('error') === 'error') {
       toast.error('Error occured, please try again later.');
       router.replace('/', undefined, { shallow: true });
@@ -96,34 +94,32 @@ function Home({ children, user_id }) {
       router.replace('/', undefined, { shallow: true });
     }
     if (searchParams.get('registration') === 'error') {
-      toast.success('Error occured, please check your data or try again later');
+      toast.error('Error occured, please check your data or try again later');
       router.replace('/', undefined, { shallow: true });
     }
     if (searchParams.get('registration') === 'success') {
       toast.success("You've registered successfully!");
-      tryToPushDataFromCookies(user_id, setCounter);
-      router.replace('/', undefined, { shallow: true });
+      tryToPushDataFromCookies(user_id);
+      fetchAndProcessData(user_id);
     }
     if (searchParams.get('oauth') === 'success') {
-      tryToPushDataFromCookies(user_id, setCounter);
-      router.replace('/', undefined, { shallow: true });
+      tryToPushDataFromCookies(user_id);
+      fetchAndProcessData(user_id);
     }
 
     if (searchParams.get('login') === 'success') {
-      tryToPushDataFromCookies(user_id, setCounter);
+      tryToPushDataFromCookies(user_id);
       fetchAndProcessData(user_id);
     }
-  }, [
-    fetchAndProcessData,
-    tryToPushDataFromCookies,
-    router,
-    searchParams,
-    setCounter,
-    user_id,
-  ]);
+  }, [fetchAndProcessData, router, searchParams, setCounter, user_id]);
 
   useEffect(() => {
-    if (loggedIn && searchParams.get('login') === 'success')
+    if (
+      loggedIn &&
+      (searchParams.get('login') === 'success' ||
+        searchParams.get('registration') === 'success' ||
+        searchParams.get('oauth') === 'success')
+    )
       router.replace('/');
   }, [loggedIn, router, searchParams]);
 

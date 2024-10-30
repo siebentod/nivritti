@@ -89,6 +89,7 @@ export async function moveDataFromCookiesAfterRegistration(
   user_id
 ) {
   const supabase = await createClient();
+  console.log('test3');
   // The Check!
   let cookiesWereTransferred = false;
   const { data, error } = await supabase
@@ -129,7 +130,13 @@ export async function moveDataFromCookiesAfterRegistration(
       throw new Error('Singulars Error');
     }
   }
-  return { totalsError, singularsError, cookiesWereTransferred };
+  return {
+    totals,
+    singulars,
+    totalsError,
+    singularsError,
+    cookiesWereTransferred,
+  };
 }
 
 export async function getData(user_id) {

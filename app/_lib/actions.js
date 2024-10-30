@@ -95,6 +95,7 @@ export async function moveDataFromCookiesAfterRegistration(
   singulars,
   user_id
 ) {
+  console.log('test3');
   const { totalsError, singularsError } =
     await apiMoveDataFromCookiesAfterRegistration(totals, singulars, user_id);
   return { totalsError, singularsError };
