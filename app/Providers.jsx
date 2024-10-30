@@ -11,7 +11,6 @@ import { getDataNumbers } from './_utils/notcookies';
 import { getCookieNumbers } from './_utils/cookies';
 import { initialCounter } from './_utils/initialCounter';
 import { arrayOfZeros, isLeapYear } from './_utils/arrayOfZeros';
-import { moveDataToDb } from './_utils/moveCookiesToDb';
 
 export function Providers({ children, user_id }) {
   return <>{children}</>;

@@ -88,8 +88,8 @@ export async function moveDataFromCookiesAfterRegistration(
   singulars,
   user_id
 ) {
+  console.log('test api supabase');
   const supabase = await createClient();
-  console.log('test3');
   // The Check!
   let cookiesWereTransferred = false;
   const { data, error } = await supabase

@@ -18,8 +18,8 @@ import { usePageStore } from '../_lib/store';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { processFetchedTotals } from '../_utils/processFetchedTotals';
 import { getDataNumbers } from '../_utils/notcookies';
-import { moveDataToDb } from '../_utils/moveCookiesToDb';
 import { createTotalsAndSingularsFromCookies } from '../_utils/createTotalsAndSingularsFromCookies';
+import { set } from 'react-hook-form';
 // import { getDataNumbers } from '../_utils/notcookies';
 // import { usePageStore } from '../_lib/store';
 
@@ -31,6 +31,7 @@ function Home({ children, user_id }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [cookiesHandeled, setCookiesHandeled] = useState(null);
   const [time, setTime] = useState(null);
   const intervalRef = useRef(null);
   const [timerState, setTimerState] = useState(null);
@@ -47,6 +48,7 @@ function Home({ children, user_id }) {
       const { singulars, totals } = await getData(user_id);
       const { total_mins, total_count, streak, activity } =
         processFetchedTotals(totals);
+      console.log('test set logged');
 
       // console.log('providers-activity', activity.length);
       setCounter(
@@ -69,10 +71,12 @@ function Home({ children, user_id }) {
   useEffect(() => {
     const tryToPushDataFromCookies = async (user_id) => {
       const { totals, singulars } = createTotalsAndSingularsFromCookies();
-      console.log('num', singulars, totals);
+      console.log('test create cookies', singulars, totals);
+
       const { cookiesWereTransferred } =
         await moveDataFromCookiesAfterRegistration(totals, singulars, user_id);
-      console.log('num2', cookiesWereTransferred);
+      console.log('test transport cookies', cookiesWereTransferred);
+
       if (cookiesWereTransferred) {
         setCounter(
           getDataNumbers(
@@ -84,7 +88,7 @@ function Home({ children, user_id }) {
         );
         console.log('Cookies were transferred');
       }
-      await fetchAndProcessData(user_id);
+      setCookiesHandeled(true);
     };
 
     if (searchParams.get('error') === 'error') {
@@ -118,7 +122,7 @@ function Home({ children, user_id }) {
 
   useEffect(() => {
     if (
-      loggedIn &&
+      cookiesHandeled &&
       (searchParams.get('login') === 'success' ||
         searchParams.get('registration') === 'success' ||
         searchParams.get('oauth') === 'success')
