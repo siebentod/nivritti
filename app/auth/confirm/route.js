@@ -17,7 +17,7 @@ export async function GET(request) {
       type,
       token_hash,
     });
-    console.log('error1');
+    console.log('error1', error);
 
     if (!error && code) {
       console.log('gethere');
