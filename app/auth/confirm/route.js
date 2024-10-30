@@ -29,12 +29,11 @@ export async function GET(request) {
         // } else if (forwardedHost) {
         //   return NextResponse.redirect(`http://${forwardedHost}${next}`);
         // } else {
-          // return NextResponse.redirect(`${origin}${next}`);
-          return NextResponse.redirect(`${origin}/?registration=success`);
-        }
+        // return NextResponse.redirect(`${origin}${next}`);
+        return NextResponse.redirect(`${origin}/?registration=success`);
       }
     }
-
-    return NextResponse.redirect(`${origin}/?error=error`);
   }
+
+  return NextResponse.redirect(`${origin}/?error=error`);
 }
