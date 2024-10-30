@@ -6,6 +6,7 @@ export async function GET(request) {
   const token_hash = searchParams.get('token_hash');
   const type = searchParams.get('type');
   const code = searchParams.get('code');
+  console.log('searchParams', searchParams);
   console.log('code', code);
   const next = searchParams.get('next') ?? '/';
 
@@ -16,11 +17,14 @@ export async function GET(request) {
       type,
       token_hash,
     });
+    console.log('error1');
 
     if (!error && code) {
+      console.log('gethere');
       const supabase = await createClient();
       const { error } = await supabase.auth.exchangeCodeForSession(code);
       if (!error) {
+        console.log('error');
         // const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer
         // const isLocalEnv = process.env.NODE_ENV === 'development';
         // if (isLocalEnv) {
