@@ -12,7 +12,7 @@ module.exports = {
         foreground: 'var(--foreground)',
         yellow: 'wheat',
         mydark: 'rgb(26, 26, 26)',
-        myhover: '#2c2c31',
+        myhover: '#36363c',
       },
     },
   },

@@ -35,7 +35,7 @@ function AccountStats({ user_id }) {
                 <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-bottom"></div>
               )}
             </div>
-            <button className="ml-1 py-0 px-4 bg-mydark border border-mydark hover:border-myhover">
+            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover">
               Reset
             </button>
             <div>
@@ -46,7 +46,7 @@ function AccountStats({ user_id }) {
                 <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-bottom"></div>
               )}
             </div>
-            <button className="ml-1 py-0 px-4 bg-mydark border border-mydark hover:border-myhover">
+            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover">
               Reset
             </button>
           </div>

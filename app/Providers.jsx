@@ -96,8 +96,9 @@ export function Providers({ children, user_id }) {
   }, [router, searchParams, setCounter, setLoggedIn, user_id]);
 
   useEffect(() => {
-    if (loggedIn) router.replace('/');
-  }, [loggedIn, router]);
+    if (loggedIn && searchParams.get('login') === 'success')
+      router.replace('/');
+  }, [loggedIn, router, searchParams]);
 
   return children;
 }
