@@ -10,6 +10,7 @@ import { signup } from '@/app/_lib/actions';
 import { signInWithOAuth } from '@/app/_lib/actions';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 function SignupForm() {
   const [isOAuthSubmitting, setIsOAuthSubmitting] = useState(false);
@@ -21,12 +22,10 @@ function SignupForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await signup(data);
-    // if (error) {
-    //   setError('root', {
-    //     message: error.message,
-    //   });
-    // }
+    const { error } = await signup(data);
+    if (error) {
+      toast.error('Error occured! Please verify data or try again later.');
+    }
   };
 
   const handleOAth = async (provider) => {
@@ -41,6 +40,22 @@ function SignupForm() {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: '8px' }}
+        toastOptions={{
+          success: { duration: 5000 },
+          error: { duration: 5000 },
+          style: {
+            fontSize: '16px',
+            maxWidth: '500px',
+            padding: '16px 24px',
+            backgroundColor: 'var(--color-grey-0)',
+            color: 'var(--color-grey-700)',
+          },
+        }}
+      />
       <main className="mx-auto w-min">
         <div className="mt-2.5 pt-3 pb-2.5 px-6 bg-zinc-800 border border-zinc-700 rounded-lg">
           <h1 className="text-3xl tracking-[-0.16px] text-zinc-50 font-bold mb-3 text-center">

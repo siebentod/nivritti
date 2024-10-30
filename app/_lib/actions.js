@@ -54,11 +54,11 @@ export async function signup(formData) {
 
   if (error) {
     console.log('error', error);
-    return error;
+    return { error: error };
+  } else {
+    revalidatePath('/', 'layout');
+    redirect('/?registration=email-sent');
   }
-
-  revalidatePath('/', 'layout');
-  redirect('/?registration=email-sent');
 }
 
 export async function logout() {
