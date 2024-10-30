@@ -95,6 +95,10 @@ function Home({ children, user_id }) {
       toast.success('Please activate your account through email!');
       router.replace('/', undefined, { shallow: true });
     }
+    if (searchParams.get('registration') === 'error') {
+      toast.success('Error occured, please check your data or try again later');
+      router.replace('/', undefined, { shallow: true });
+    }
     if (searchParams.get('registration') === 'success') {
       toast.success("You've registered successfully!");
       tryToPushDataFromCookies(user_id, setCounter);

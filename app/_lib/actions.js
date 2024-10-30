@@ -47,14 +47,13 @@ export async function signup(formData) {
       },
     },
   };
-  console.log('userData', userData);
 
-  const { data, error } = await supabase.auth.signUp(userData);
-  console.log('data', data);
+  const { error } = await supabase.auth.signUp(userData);
 
   if (error) {
     console.log('error', error);
-    return { error: error };
+    revalidatePath('/', 'layout');
+    redirect('/?registration=error');
   } else {
     revalidatePath('/', 'layout');
     redirect('/?registration=email-sent');
