@@ -2,7 +2,7 @@ import { createClient } from '../../_lib/supabase/server';
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
   const token_hash = searchParams.get('token_hash');
   const type = searchParams.get('type');
   const code = searchParams.get('code');
@@ -38,5 +38,5 @@ export async function GET(request) {
     }
   }
 
-  NextResponse.redirect(`${origin}/?error=error`);
+  return NextResponse.redirect(`${origin}/?error=error`);
 }
