@@ -10,24 +10,26 @@ export async function GET(request) {
   console.log('token_hash', token_hash);
   const type = searchParams.get('type');
   console.log('type', type);
-  const code = searchParams.get('code');
-  console.log('code', code);
+  // const code = searchParams.get('code');
+  // console.log('code', code);
   // const next = searchParams.get('next') ?? '/';
 
   if (token_hash && type) {
     const supabase = await createClient();
 
-    const { error } = await supabase.auth.verifyOtp({
+    const { data, error } = await supabase.auth.verifyOtp({
       type,
       token_hash,
     });
-    console.log('error1', error);
+    console.log('error', error);
+    console.log('data', data);
+    const code = data?.code;
 
-    if (!error && code) {
+    if (code) {
       console.log('gethere');
       const supabase = await createClient();
       const { error } = await supabase.auth.exchangeCodeForSession(code);
-      console.log(error, 'error1');
+      console.log('error2', error);
       if (!error) {
         console.log('no-error');
         // const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer
