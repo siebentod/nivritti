@@ -106,8 +106,6 @@ export async function moveDataFromCookiesAfterRegistration(
 
   let totalsError;
   let singularsError;
-  // console.log('totals', totals);
-  // console.log('singulars', singulars);
   if (totals) {
     const { error } = await supabase
       .from('totals')

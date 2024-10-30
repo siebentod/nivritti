@@ -1,11 +1,19 @@
 'use client';
 
-import { usePageStore } from '../_lib/store';
+import { useEffect } from 'react';
+import { useFetchAndProcessData } from '../_utils/useFetchAndProcessData';
 import Heatmap from './Heatmap';
 import ResetAllStats from './ResetAllStats';
 
 function AccountStats({ user_id }) {
-  const counter = usePageStore((state) => state.counter);
+  const { counter, fetchAndProcessData } = useFetchAndProcessData(user_id);
+
+  useEffect(() => {
+    if (isNaN(counter?.streak)) {
+      fetchAndProcessData(user_id);
+      console.log('fetched');
+    }
+  }, [counter?.streak, fetchAndProcessData, user_id]);
 
   return (
     <>

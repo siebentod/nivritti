@@ -1,16 +1,31 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 import './Home.scss';
 import TimeButtons from './TimeButtons';
 import TimerSection from './TimerSection';
 import StatsSection from './StatsSection';
+import { getCookieNumbers, saveCookies } from '../_utils/cookies';
+import { initialCounter } from '../_utils/initialCounter';
+import { getData, updateData } from '../_lib/actions';
+import { usePageStore } from '../_lib/store';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { processFetchedTotals } from '../_utils/processFetchedTotals';
+import { getDataNumbers } from '../_utils/notcookies';
+import { moveDataToDb } from '../_utils/moveCookiesToDb';
 // import { getDataNumbers } from '../_utils/notcookies';
 // import { usePageStore } from '../_lib/store';
 
 function Home({ children, user_id }) {
+  const counter = usePageStore((state) => state.counter);
+  const setCounter = usePageStore((state) => state.setCounter);
+  const setLoggedIn = usePageStore((state) => state.setLoggedIn);
+  const loggedIn = usePageStore((state) => state.loggedIn);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [time, setTime] = useState(null);
   const intervalRef = useRef(null);
   const [timerState, setTimerState] = useState(null);
@@ -22,6 +37,92 @@ function Home({ children, user_id }) {
   // const [mode, setMode] = useState('triangle');
   const [isFocused, setIsFocused] = useState(true);
 
+  const tryToPushDataFromCookies = useCallback(async function (
+    user_id,
+    setCounter
+  ) {
+    const { singulars, totals, cookiesWereTransferred } = await moveDataToDb(
+      user_id
+    );
+    if (cookiesWereTransferred) {
+      setCounter(
+        getDataNumbers(
+          singulars,
+          totals.total_mins,
+          totals.total_count,
+          totals.streak
+        )
+      );
+      console.log('Cookies were transferred');
+    }
+  },
+  []);
+
+  const fetchAndProcessData = useCallback(
+    async function (user_id) {
+      const { singulars, totals } = await getData(user_id);
+      const { total_mins, total_count, streak, activity } =
+        processFetchedTotals(totals);
+
+      // console.log('providers-activity', activity.length);
+      setCounter(
+        getDataNumbers(singulars, total_mins, total_count, streak, activity)
+      );
+      setLoggedIn(true);
+    },
+    [setCounter, setLoggedIn]
+  );
+
+  useEffect(() => {
+    if (!user_id) {
+      setCounter(getCookieNumbers(initialCounter));
+      console.log('set cookie');
+    } else {
+      fetchAndProcessData(user_id);
+    }
+  }, [fetchAndProcessData, setCounter, user_id]);
+
+  useEffect(() => {
+    if (searchParams.get('error') === 'error') {
+      toast.error('Error occured, please try again later.');
+      router.replace('/', undefined, { shallow: true });
+    }
+    if (searchParams.get('login') === 'error') {
+      toast.error('Error occured, please try again later.');
+      router.replace('/', undefined, { shallow: true });
+    }
+    if (searchParams.get('registration') === 'email-sent') {
+      toast.success('Please activate your account through email!');
+      router.replace('/', undefined, { shallow: true });
+    }
+    if (searchParams.get('registration') === 'success') {
+      toast.success("You've registered successfully!");
+      tryToPushDataFromCookies(user_id, setCounter);
+      router.replace('/', undefined, { shallow: true });
+    }
+    if (searchParams.get('oauth') === 'success') {
+      tryToPushDataFromCookies(user_id, setCounter);
+      router.replace('/', undefined, { shallow: true });
+    }
+
+    if (searchParams.get('login') === 'success') {
+      tryToPushDataFromCookies(user_id, setCounter);
+      fetchAndProcessData(user_id);
+    }
+  }, [
+    fetchAndProcessData,
+    tryToPushDataFromCookies,
+    router,
+    searchParams,
+    setCounter,
+    user_id,
+  ]);
+
+  useEffect(() => {
+    if (loggedIn && searchParams.get('login') === 'success')
+      router.replace('/');
+  }, [loggedIn, router, searchParams]);
+
   const startTimer = useCallback((duration) => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -31,7 +132,7 @@ function Home({ children, user_id }) {
 
     intervalRef.current = setInterval(() => {
       setTime((prevTime) => {
-        if (prevTime >= 0) {
+        if (prevTime <= 0) {
           return prevTime - 1;
         } else {
           clearInterval(intervalRef.current);
@@ -109,6 +210,43 @@ function Home({ children, user_id }) {
     }
   };
 
+  const handleSaveCounter = async () => {
+    let singulars;
+    let totals;
+    let streak;
+    let activity;
+
+    const mins = currentTimer / 60;
+    const newCounter = {
+      countToday: +counter.countToday + 1,
+      countWeek: +counter.countWeek + 1,
+      countAll: +counter.countAll + 1,
+      minutesToday: +counter.minutesToday + mins,
+      minutesWeek: +counter.minutesWeek + mins,
+      minutesAll: +counter.minutesAll + mins,
+    };
+    if (!user_id) {
+      saveCookies(newCounter, mins);
+      setCounter(newCounter);
+    } else {
+      console.log(user_id);
+      ({ singulars, totals, streak, activity } = await updateData(
+        mins,
+        user_id
+      ));
+      setCounter(
+        getDataNumbers(
+          singulars,
+          totals.total_mins,
+          totals.total_count,
+          streak,
+          activity
+        )
+      );
+    }
+    setTimerState('saved');
+  };
+
   return (
     <>
       <Toaster
@@ -145,6 +283,7 @@ function Home({ children, user_id }) {
           time={time}
           currentTimer={currentTimer}
           user_id={user_id}
+          handleSaveCounter={handleSaveCounter}
         />
 
         {timerState !== 'inProcess' && (

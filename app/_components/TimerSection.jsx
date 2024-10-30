@@ -1,10 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { yoga, wellDone, brahmaSatyam, gateParagate } from './Words';
 import { finalTime } from '../_utils/finalTime';
-import { usePageStore } from '../_lib/store';
-import { saveCookies } from '../_utils/cookies';
-import { updateData } from '../_lib/actions';
-import { getDataNumbers } from '../_utils/notcookies';
 import { Bitter } from 'next/font/google';
 
 const fontText = Bitter({
@@ -16,55 +12,11 @@ const fontText = Bitter({
 function TimerSection({
   color,
   timerState,
-  setTimerState,
   time,
   currentTimer,
-  user_id,
+  handleSaveCounter,
 }) {
   const buttonRef = useRef(null);
-  const counter = usePageStore((state) => state.counter);
-  const setCounter = usePageStore((state) => state.setCounter);
-
-  const handleSaveCounter = async () => {
-    let singulars;
-    let totals;
-    let streak;
-    let activity;
-
-    const mins = currentTimer / 60;
-    const newCounter = {
-      countToday: +counter.countToday + 1,
-      countWeek: +counter.countWeek + 1,
-      countAll: +counter.countAll + 1,
-      minutesToday: +counter.minutesToday + mins,
-      minutesWeek: +counter.minutesWeek + mins,
-      minutesAll: +counter.minutesAll + mins,
-    };
-    if (!user_id) {
-      saveCookies(newCounter, mins);
-      setCounter(newCounter);
-    } else {
-      console.log(user_id);
-      ({ singulars, totals, streak, activity } = await updateData(
-        mins,
-        user_id
-      ));
-
-      let total_mins;
-      let total_count;
-      if (totals) {
-        total_mins = totals.total_mins;
-        total_count = totals.total_count;
-      } else {
-        total_mins = 0;
-        total_count = 0;
-      }
-      setCounter(
-        getDataNumbers(singulars, total_mins, total_count, streak, activity)
-      );
-    }
-    setTimerState('saved');
-  };
 
   const timerColor = {
     color: color,
