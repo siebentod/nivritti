@@ -72,11 +72,9 @@ function Home({ children, user_id }) {
     const tryToPushDataFromCookies = async (user_id) => {
       const { totals, singulars } =
         createTotalsAndSingularsFromCookies(user_id);
-      console.log('test create cookies', singulars, totals);
 
       const { cookiesWereTransferred } =
         await moveDataFromCookiesAfterRegistration(totals, singulars, user_id);
-      console.log('test transport cookies', cookiesWereTransferred);
 
       if (cookiesWereTransferred) {
         setCounter(

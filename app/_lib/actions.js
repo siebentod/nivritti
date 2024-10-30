@@ -96,9 +96,9 @@ export async function moveDataFromCookiesAfterRegistration(
   user_id
 ) {
   console.log('test action');
-  const { totalsError, singularsError } =
+  const { totalsError, singularsError, cookiesWereTransferred } =
     await apiMoveDataFromCookiesAfterRegistration(totals, singulars, user_id);
-  return { totalsError, singularsError };
+  return { totalsError, singularsError, cookiesWereTransferred };
 }
 
 export async function signInWithOAuth(provider) {
