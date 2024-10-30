@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie';
 
-const createSingularsFromCookies = (allCookies) => {
+const createSingularsFromCookies = (allCookies, user_id) => {
   let singulars = [];
   for (const cookieName in allCookies) {
     if (cookieName.match(/GMT/)) {
       const formattedDate = new Date(cookieName).toISOString();
       const formattedNumber = Number(allCookies[cookieName]);
-      singulars.push({ date: formattedDate, mins: formattedNumber });
-      //singulars.push({ date: formattedDate, mins: formattedNumber, user_id });
+      // singulars.push({ date: formattedDate, mins: formattedNumber });
+      singulars.push({ date: formattedDate, mins: formattedNumber, user_id });
       // НУЖНО ЛИ ВСТАВЛЯТЬ USER_ID?
     }
   }
@@ -26,11 +26,10 @@ const createTotalsFromCookies = (allCookies) => {
   return { totals };
 };
 
-export function createTotalsAndSingularsFromCookies() {
+export function createTotalsAndSingularsFromCookies(user_id) {
   const allCookies = Cookies.get();
   const { totals } = createTotalsFromCookies(allCookies);
-  const { singulars } = createSingularsFromCookies(allCookies);
-  //const { singulars } = createSingularsFromCookies(allCookies, user_id);
+  const { singulars } = createSingularsFromCookies(allCookies, user_id);
   // НУЖНО ЛИ ВСТАВЛЯТЬ USER_ID?
   return { totals, singulars };
 }
