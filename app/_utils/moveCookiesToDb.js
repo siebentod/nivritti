@@ -3,8 +3,7 @@ import { createTotalsAndSingularsFromCookies } from './createTotalsAndSingularsF
 
 export const moveDataToDb = async (user_id) => {
   const { totals, singulars } = createTotalsAndSingularsFromCookies();
-  console.log('test2');
-  console.log('test22');
+  console.log('test2', totals, singulars);
 
   const { totalsError, singularsError, cookiesWereTransferred } =
     await moveDataFromCookiesAfterRegistration(totals, singulars, user_id);

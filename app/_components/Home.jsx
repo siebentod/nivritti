@@ -9,12 +9,17 @@ import TimerSection from './TimerSection';
 import StatsSection from './StatsSection';
 import { getCookieNumbers, saveCookies } from '../_utils/cookies';
 import { initialCounter } from '../_utils/initialCounter';
-import { getData, updateData } from '../_lib/actions';
+import {
+  getData,
+  moveDataFromCookiesAfterRegistration,
+  updateData,
+} from '../_lib/actions';
 import { usePageStore } from '../_lib/store';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { processFetchedTotals } from '../_utils/processFetchedTotals';
 import { getDataNumbers } from '../_utils/notcookies';
 import { moveDataToDb } from '../_utils/moveCookiesToDb';
+import { createTotalsAndSingularsFromCookies } from '../_utils/createTotalsAndSingularsFromCookies';
 // import { getDataNumbers } from '../_utils/notcookies';
 // import { usePageStore } from '../_lib/store';
 
@@ -63,11 +68,11 @@ function Home({ children, user_id }) {
 
   useEffect(() => {
     const tryToPushDataFromCookies = async (user_id) => {
-      console.log('test0');
-      const { singulars, totals, cookiesWereTransferred } = await moveDataToDb(
-        user_id
-      );
-      console.log('num', singulars, totals, cookiesWereTransferred);
+      const { totals, singulars } = createTotalsAndSingularsFromCookies();
+      console.log('num', singulars, totals);
+      const { cookiesWereTransferred } =
+        await moveDataFromCookiesAfterRegistration(totals, singulars, user_id);
+      console.log('num2', cookiesWereTransferred);
       if (cookiesWereTransferred) {
         setCounter(
           getDataNumbers(
@@ -79,6 +84,7 @@ function Home({ children, user_id }) {
         );
         console.log('Cookies were transferred');
       }
+      await fetchAndProcessData(user_id);
     };
 
     if (searchParams.get('error') === 'error') {
@@ -100,16 +106,13 @@ function Home({ children, user_id }) {
     if (searchParams.get('registration') === 'success') {
       toast.success("You've registered successfully!");
       tryToPushDataFromCookies(user_id);
-      fetchAndProcessData(user_id);
     }
     if (searchParams.get('oauth') === 'success') {
       tryToPushDataFromCookies(user_id);
-      fetchAndProcessData(user_id);
     }
 
     if (searchParams.get('login') === 'success') {
       tryToPushDataFromCookies(user_id);
-      fetchAndProcessData(user_id);
     }
   }, [fetchAndProcessData, router, searchParams, setCounter, user_id]);
 
