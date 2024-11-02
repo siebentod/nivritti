@@ -19,7 +19,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { processFetchedTotals } from '../_utils/processFetchedTotals';
 import { getDataNumbers } from '../_utils/notcookies';
 import { createTotalsAndSingularsFromCookies } from '../_utils/createTotalsAndSingularsFromCookies';
-import { set } from 'react-hook-form';
+// import { set } from 'react-hook-form';
 // import { getDataNumbers } from '../_utils/notcookies';
 // import { usePageStore } from '../_lib/store';
 
@@ -138,7 +138,7 @@ function Home({ children, user_id }) {
 
     intervalRef.current = setInterval(() => {
       setTime((prevTime) => {
-        if (prevTime <= 0) {
+        if (prevTime >= 0) {
           return prevTime - 1;
         } else {
           clearInterval(intervalRef.current);
