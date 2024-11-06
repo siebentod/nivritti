@@ -33,7 +33,11 @@ export const getDataNumbers = (
     activity: activity,
   };
 
-  if (!singulars) return pullCounter;
+  if (isNaN(total_mins) || isNaN(total_count)) {
+    return null;
+  } else {
+    if (!singulars) return pullCounter;
+  }
   // console.log('singulars', singulars);
 
   singulars.map((singular) => {

@@ -1,13 +1,15 @@
 'use client';
 
+import { useState } from 'react';
+import { experimental_useFormState as useFormState } from 'react-dom';
+import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import Link from 'next/link';
+
+import { login, signInWithOAuth } from '@/app/_lib/actions';
 import GoogleButton from './GoogleButton';
 import GithubButton from './GithubButton';
 import BackButton from './BackButton';
 import Or from './Or';
-import { login, signInWithOAuth } from '@/app/_lib/actions';
-import { useState } from 'react';
-import { useActionState } from 'react';
 
 const initialState = {
   message: '',
@@ -15,12 +17,13 @@ const initialState = {
 
 function SigninForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [state, formAction, isPending] = useActionState(login, initialState);
-  console.log('state', state);
+  const { pending } = useFormStatus();
+  const [state, formAction] = useFormState(login, initialState);
 
   const handleOAth = async (provider) => {
     setIsSubmitting(true);
-    await signInWithOAuth(provider);
+    const { error } = await signInWithOAuth(provider);
+    if (error) setIsSubmitting(false);
   };
 
   return (
@@ -31,7 +34,7 @@ function SigninForm() {
             Sign In
           </h1>
 
-          <form action={formAction}>
+          <form onSubmit={() => setIsSubmitting(true)}>
             <div className="mb-4 space-y-2">
               <label htmlFor="email" className="text-sm text-zinc-100">
                 Email
@@ -44,10 +47,10 @@ function SigninForm() {
                 placeholder="user@example.com"
                 autoFocus
                 required
-                disabled={isSubmitting || isPending}
+                disabled={isSubmitting || pending}
               />
             </div>
-            <div className="space-y-2">
+            <div className="mb-6 space-y-2">
               <label htmlFor="password" className="text-sm text-zinc-100">
                 Password
               </label>
@@ -58,27 +61,22 @@ function SigninForm() {
                 name="password"
                 placeholder="••••••••••••"
                 required
-                disabled={isSubmitting || isPending}
+                disabled={isSubmitting || pending}
               />
             </div>
-            <p
-              className={`text-red-500 text-center ${
-                state?.message ? 'mt-3 mb-0.5' : 'mt-6'
-              }`}
-            >
-              {state?.message}
-            </p>
+            {state}
             <button
               type="submit"
               className="auth-button"
-              disabled={isSubmitting || isPending}
+              disabled={isSubmitting || pending}
+              formAction={formAction}
             >
               <span className="inline-flex items-center justify-center visible gap-1 truncate">
                 Login
               </span>
             </button>
+            <Or />
           </form>
-          <Or />
           <div className="flex flex-col items-center gap-4 mb-4 sm:flex-row">
             <form
               onSubmit={(e) => {
@@ -87,7 +85,7 @@ function SigninForm() {
               }}
               className="w-full"
             >
-              <GithubButton isSubmitting={isSubmitting || isPending}>
+              <GithubButton isSubmitting={isSubmitting || pending}>
                 Sign in with Github
               </GithubButton>
             </form>
@@ -98,7 +96,7 @@ function SigninForm() {
               }}
               className="w-full"
             >
-              <GoogleButton isSubmitting={isSubmitting || isPending}>
+              <GoogleButton isSubmitting={isSubmitting || pending}>
                 Sign in with Google
               </GoogleButton>
             </form>

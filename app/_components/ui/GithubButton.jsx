@@ -3,7 +3,7 @@ function GithubButton({ children, isSubmitting }) {
     <>
       <button
         type="submit"
-        className="relative inline-flex items-center justify-center w-full h-10 gap-1 pl-4 pr-4 text-sm font-semibold transition duration-200 ease-in-out border rounded-md cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-70 border-mydark dark:text-zinc-100 bg-zinc-900 text-zinc-50 hover:border-myhover focus-visible:ring-2 focus-visible:ring-zinc-800 focus-visible:outline-none focus-visible:bg-zinc-800"
+        className="relative inline-flex items-center justify-center w-full h-10 gap-1 pl-4 pr-4 text-sm font-semibold transition duration-200 ease-in-out border rounded-md cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-70 border-mydark dark:text-zinc-100 bg-mydark text-zinc-50 hover:border-myhover focus-visible:ring-2 focus-visible:ring-zinc-800 focus-visible:outline-none focus-visible:bg-zinc-800"
         disabled={isSubmitting}
       >
         <span className="absolute inset-0 flex items-center justify-center invisible w-full">

@@ -12,7 +12,6 @@ export async function getUser() {
 export async function signInWithOAuth(provider) {
   const origin = (await headers().get('origin')) + '/auth/callback';
   // const origin = 'http://localhost:3000/auth/callback';
-  console.log('origin', origin);
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -24,10 +23,8 @@ export async function signInWithOAuth(provider) {
 
   if (error) {
     console.log(error);
-    throw new Error(error.message);
+    return { error: error.message };
   } else {
-    console.log(data);
-    console.log('data.url', data.url);
     return redirect(data.url);
   }
 }

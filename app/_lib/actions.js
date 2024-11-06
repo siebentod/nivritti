@@ -18,7 +18,7 @@ export async function getUser() {
   return { data, error };
 }
 
-export async function login(formData) {
+export async function login(previousState, formData) {
   const supabase = await createClient();
 
   // you should validate your inputs
@@ -29,7 +29,9 @@ export async function login(formData) {
 
   const { error } = await supabase.auth.signInWithPassword(data);
   if (error) {
-    redirect('/?login=error');
+    return error.code === 'invalid_credentials'
+      ? { message: 'Invalid credentials' }
+      : { message: 'Invalid credentials' }; // or 'Unknown error'
   }
   revalidatePath('/', 'layout');
   redirect('/?login=success');

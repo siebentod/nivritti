@@ -27,7 +27,7 @@ function Home({ children, user_id }) {
   const counter = usePageStore((state) => state.counter);
   const setCounter = usePageStore((state) => state.setCounter);
   const setLoggedIn = usePageStore((state) => state.setLoggedIn);
-  const loggedIn = usePageStore((state) => state.loggedIn);
+  // const loggedIn = usePageStore((state) => state.loggedIn);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -127,7 +127,7 @@ function Home({ children, user_id }) {
         searchParams.get('oauth') === 'success')
     )
       router.replace('/');
-  }, [loggedIn, router, searchParams]);
+  }, [cookiesHandeled, router, searchParams]);
 
   const startTimer = useCallback((duration) => {
     if (intervalRef.current) {
@@ -235,7 +235,6 @@ function Home({ children, user_id }) {
       saveCookies(newCounter, mins);
       setCounter(newCounter);
     } else {
-      console.log(user_id);
       ({ singulars, totals, streak, activity } = await updateData(
         mins,
         user_id
