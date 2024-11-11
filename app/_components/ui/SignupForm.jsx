@@ -179,7 +179,7 @@ function SignupForm() {
               </GoogleButton>
             </form>
           </div>
-          <div className="text-center text-zinc-300">
+          <div className="text-center text-zinc-300 mb-0.5">
             Already have an account?{' '}
             <Link className="text-zinc-100 hover:text-zinc-200" href="/signin">
               Login

@@ -46,7 +46,7 @@ function TimeButtons({
               -
             </button>
             <input
-              className="w-16 text-center bg-zinc-600 border-zinc-700 focus:outline focus:outline-zinc-400"
+              className="w-16 text-center bg-zinc-600 border-zinc-700 focus:outline focus:outline-1 focus:outline-zinc-400"
               style={{
                 ...(manualTime <= 0 && {
                   backgroundColor: '#4b2727',

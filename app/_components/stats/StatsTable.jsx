@@ -10,15 +10,7 @@ function StatsTable({ counter, user_id }) {
         <span className="text-yellow">
           {Math.round(counter.minutesToday * 10) / 10}
         </span>{' '}
-        min.{' '}
-        {!user_id && (
-          <span
-            className="bg-zinc-900 hover:bg-zinc-800 rounded-full py-1 px-3 ml-2 text-sm text-yellow cursor-default"
-            title="Stats are stored in cookies. You can sign in to store them on the server and get additional statistics."
-          >
-            !
-          </span>
-        )}
+        min.
       </p>
       <p>
         Last week{' '}
@@ -41,6 +33,14 @@ function StatsTable({ counter, user_id }) {
           {Math.round(counter.minutesAll * 10) / 10}
         </span>{' '}
         min.
+        {!user_id && (
+          <span
+            className="cursor-help absolute bottom-0.5 right-1.5"
+            title="Stats are stored in cookies. You can sign in to store them on the server and get additional statistics."
+          >
+            <span className="icon-[noto--cookie]"></span>
+          </span>
+        )}
       </p>
     </>
   );

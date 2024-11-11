@@ -31,7 +31,7 @@ function ResetAllStats({ user_id }) {
       <div className="m-auto mt-2">
         <button
           onClick={counter !== initialCounter ? onModalOpen : null}
-          className="py-2 px-6 bg-mydark border border-mydark hover:border-myhover"
+          className="py-2 px-6 bg-mydark border border-mydark hover:border-myhover rounded-lg"
         >
           Reset all stats
         </button>

@@ -63,7 +63,7 @@ function SigninForm() {
             </div>
             <p
               className={`text-red-500 text-center ${
-                state?.message ? 'mt-3 mb-0.5' : 'mt-6'
+                state?.message ? 'mt-3 mb-0.5' : 'mt-5'
               }`}
             >
               {state?.message}

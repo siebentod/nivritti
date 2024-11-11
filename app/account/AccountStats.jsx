@@ -38,23 +38,33 @@ function AccountStats({ user_id }) {
             <div className="w-auto">
               Longest streak:{' '}
               {!isNaN(counter.streak) ? (
-                <span className="text-yellow">...</span>
+                <span
+                  className="text-yellow cursor-help"
+                  title="Functionality is in progress..."
+                >
+                  ...
+                </span>
               ) : (
                 <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-bottom"></div>
               )}
             </div>
-            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover">
+            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover rounded-lg">
               Reset
             </button>
             <div>
               Longest nothingdoing:{' '}
               {!isNaN(counter.streak) ? (
-                <span className="text-yellow">...</span>
+                <span
+                  className="text-yellow cursor-help"
+                  title="Functionality is in progress..."
+                >
+                  ...
+                </span>
               ) : (
                 <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-bottom"></div>
               )}
             </div>
-            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover">
+            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover rounded-lg">
               Reset
             </button>
           </div>

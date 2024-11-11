@@ -17,7 +17,7 @@ export default async function Page() {
   return (
     <>
       <BackButton />
-      <div className="text-center right-2 top-2 text-sm px-4 py-2.5 sm:relative md:fixed md:bg-zinc-800 md:border md:border-mydark rounded-lg">
+      <div className="text-center right-2 top-2 text-sm px-4 py-2.5 sm:relative md:fixed md:bg-zinc-800 md:border md:border-zinc-700 rounded-lg border-mydark">
         <LoggedAs data={data} />
         <SignOutButton />
       </div>

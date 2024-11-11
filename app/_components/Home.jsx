@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import './Home.scss';
-import TimeButtons from './TimeButtons';
-import TimerSection from './TimerSection';
-import StatsSection from './StatsSection';
+import TimeButtons from './timer-section/TimeButtons';
+import TimerSection from './timer-section/TimerSection';
+import StatsSection from './stats/StatsSection';
 import { getCookieNumbers, saveCookies } from '../_utils/cookies';
 import { initialCounter } from '../_utils/initialCounter';
 import {

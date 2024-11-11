@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { yoga, wellDone, brahmaSatyam, gateParagate } from './Words';
-import { finalTime } from '../_utils/finalTime';
+import { yoga, wellDone, brahmaSatyam, gateParagate } from '../Words';
+import { finalTime } from '../../_utils/finalTime';
 import { Bitter } from 'next/font/google';
 
 const fontText = Bitter({
