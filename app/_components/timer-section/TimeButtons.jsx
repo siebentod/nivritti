@@ -4,6 +4,7 @@ function TimeButtons({
   setIsFocused,
   inputHandle,
   isFocused,
+  cookiesHandeled,
 }) {
   const dec = function () {
     if (manualTime > 1) setManualTime((count) => count - 1);
@@ -34,6 +35,9 @@ function TimeButtons({
               isFocused && setIsFocused(false);
             }}
             className="chooseTime bg-mydark"
+            {...(cookiesHandeled === 'in-process' && {
+              disabled: true,
+            })}
           >
             {manualTime} min
           </button>

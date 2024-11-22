@@ -29,20 +29,22 @@ export default function Page() {
             The Idea is borrowed from{' '}
             <a
               href="http://www.donothingfor2minutes.com/"
-              className="underline hover:text-[#c2c9d6]"
+              className="underline underline-offset-2 hover:text-[#c2c9d6]"
             >
               donothingfor2minutes.com
             </a>
             .
           </li>
           <li>
-            Github:{' '}
+            Github
+            <FaGithub className="text-xs ml-0.5 align-baseline inline-block" />:{' '}
             <a
               href="https://github.com/siebentod"
-              className="underline hover:text-[#c2c9d6] inline-flex items-center gap-0.5"
+              className="underline underline-offset-2 hover:text-[#c2c9d6] inline-flex items-center gap-0.5"
             >
-              siebentod <FaGithub height={14} />
+              siebentod
             </a>
+            .
           </li>
         </ul>
       </div>

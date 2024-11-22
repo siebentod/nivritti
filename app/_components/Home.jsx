@@ -70,6 +70,7 @@ function Home({ children, user_id }) {
 
   useEffect(() => {
     const tryToPushDataFromCookies = async (user_id) => {
+      setCookiesHandeled('in-process');
       const { totals, singulars } =
         createTotalsAndSingularsFromCookies(user_id);
 
@@ -87,7 +88,7 @@ function Home({ children, user_id }) {
         );
         console.log('Cookies were transferred');
       }
-      setCookiesHandeled(true);
+      setCookiesHandeled('ready');
     };
 
     if (searchParams.get('error') === 'error') {
@@ -121,7 +122,7 @@ function Home({ children, user_id }) {
 
   useEffect(() => {
     if (
-      cookiesHandeled &&
+      cookiesHandeled === 'ready' &&
       (searchParams.get('login') === 'success' ||
         searchParams.get('registration') === 'success' ||
         searchParams.get('oauth') === 'success')
@@ -300,6 +301,7 @@ function Home({ children, user_id }) {
             setCurrentTimer={setCurrentTimer}
             startTimer={startTimer}
             isFocused={isFocused}
+            cookiesHandeled={cookiesHandeled}
           />
         )}
       </main>
