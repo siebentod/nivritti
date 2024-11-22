@@ -72,12 +72,9 @@ export async function updateData(mins, user_id) {
     throw new Error('Singulars Update Error');
   }
   totals = totals[0];
-  const streak = totals?.streak;
-  const activity = isLeapYear ? totals.activity_leap : totals.activity;
-  console.log('api-activity', activity.length);
 
   // console.log('totals', totals);
-  return { singulars, totals, streak, activity };
+  return { singulars, totals };
 }
 
 export async function moveDataFromCookiesAfterRegistration(
@@ -171,6 +168,7 @@ export async function clearData(user_id) {
         total_count: 0,
         streak: 0,
         last_time: null,
+        last_timer_used: null,
         activity_leap: arrayOfZeros, // todo проверка leap
       })
       .eq('user_id', user_id),

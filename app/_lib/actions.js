@@ -81,11 +81,8 @@ export async function getData(user_id) {
 }
 
 export async function updateData(mins, user_id) {
-  const { singulars, totals, streak, activity } = await apiUpdateData(
-    mins,
-    user_id
-  );
-  return { singulars, totals, streak, activity };
+  const { singulars, totals } = await apiUpdateData(mins, user_id);
+  return { singulars, totals };
 }
 
 export async function clearData(user_id) {

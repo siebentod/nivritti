@@ -19,6 +19,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { processFetchedTotals } from '../_utils/processFetchedTotals';
 import { getDataNumbers } from '../_utils/notcookies';
 import { createTotalsAndSingularsFromCookies } from '../_utils/createTotalsAndSingularsFromCookies';
+import { isLeapYear } from '../_utils/arrayOfZeros';
 // import { set } from 'react-hook-form';
 // import { getDataNumbers } from '../_utils/notcookies';
 // import { usePageStore } from '../_lib/store';
@@ -46,11 +47,11 @@ function Home({ children, user_id }) {
   const fetchAndProcessData = useCallback(
     async function (user_id) {
       const { singulars, totals } = await getData(user_id);
-      const { total_mins, total_count, streak, activity } =
+      const { total_mins, total_count, streak, activity, last_timer_used } =
         processFetchedTotals(totals);
-      console.log('test set logged');
 
-      // console.log('providers-activity', activity.length);
+      if (last_timer_used) setManualTime(last_timer_used);
+      console.log(last_timer_used);
       setCounter(
         getDataNumbers(singulars, total_mins, total_count, streak, activity)
       );
@@ -236,16 +237,15 @@ function Home({ children, user_id }) {
       saveCookies(newCounter, mins);
       setCounter(newCounter);
     } else {
-      ({ singulars, totals, streak, activity } = await updateData(
-        mins,
-        user_id
-      ));
+      ({ singulars, totals } = await updateData(mins, user_id));
+      const activity = isLeapYear ? totals.activity_leap : totals.activity;
+      setCurrentTimer(totals.last_timer_used);
       setCounter(
         getDataNumbers(
           singulars,
           totals.total_mins,
           totals.total_count,
-          streak,
+          totals.streak,
           activity
         )
       );
