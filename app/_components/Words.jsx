@@ -7,24 +7,24 @@ export const brahmaSatyam = (
 );
 export const gateParagate = [
   <p key={0} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
-    Ruupam shuunyataa shuunyataiva ruupam
+    Rūpaṃ śūnyatā śunyataiva rūpam
   </p>,
   <p key={1} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
-    Sarva-dharmaah shuunyataa-lakshanaa
+    Sarva-dharmāḥ śūnyatā-lakṣaṇā
   </p>,
   <p key={2} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
-    Shuunyaayaam na ruupam na vedanaa
+    Śūnyatayāṃ na rūpaṃ na vedanā
     <br />
-    Na samjnaa na samskaaraa na vijnaanaani
+    Na saṃjñā na saṃskārāḥ na vijñānam
   </p>,
   <p key={3} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
-    Na duhkha-samudaya-nirodha-maargaa
+    Na duhkha-samudaya-nirodha-margā
   </p>,
   <p key={4} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
-    Na vidyaa, naavidyaa
+    Na-avidyā na-avidyā
   </p>,
   <p key={5} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
-    Na jnaanam, na praaptir apraaptitvena
+    Na jñānam, na prāptir na-aprāptiḥ
   </p>,
   <p key={6} style={{ fontSize: '3.2rem', lineHeight: '1.1' }}>
     Gate Gate Pāragate
