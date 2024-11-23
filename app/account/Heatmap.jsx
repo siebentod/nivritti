@@ -51,12 +51,7 @@ function Heatmap({ counter }) {
   for (let i = 0; i < activity.length; i++) {
     let date = new Date(new Date().getFullYear(), 0, i + 1);
     date = formatDate(date);
-    if (activity[i] === 1) {
-      activityData.push({ date, count: 1 });
-      console.log('found', i);
-    } else {
-      activityData.push({ date, count: 0 });
-    }
+    activityData.push({ date, count: activity[i] });
   }
 
   const values = activityData;
@@ -74,7 +69,10 @@ function Heatmap({ counter }) {
           if (!value) {
             return 'No data';
           }
-          return value.date;
+          if (value.date && !value.count) {
+            return value.date;
+          }
+          return `${value.date}: ${value.count}`;
         }}
         classForValue={(value) => {
           if (!value) {

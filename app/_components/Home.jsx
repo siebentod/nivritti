@@ -221,8 +221,6 @@ function Home({ children, user_id }) {
   const handleSaveCounter = async () => {
     let singulars;
     let totals;
-    let streak;
-    let activity;
 
     const mins = currentTimer / 60;
     const newCounter = {
