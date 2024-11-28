@@ -72,7 +72,7 @@ function Heatmap({ counter }) {
           if (value.date && !value.count) {
             return value.date;
           }
-          return `${value.date}: ${value.count}`;
+          return `${value.date}: ${value.count} min`;
         }}
         classForValue={(value) => {
           if (!value) {

@@ -219,6 +219,7 @@ function Home({ children, user_id }) {
   };
 
   const handleSaveCounter = async () => {
+    setTimerState('saving');
     let singulars;
     let totals;
 

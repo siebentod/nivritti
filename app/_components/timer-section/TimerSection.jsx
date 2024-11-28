@@ -69,6 +69,7 @@ function TimerSection({
           className="saveResult text-sm"
           onClick={handleSaveCounter}
           ref={buttonRef}
+          disabled={timerState === 'saving'}
         >
           Save in memory
         </button>
