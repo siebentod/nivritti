@@ -17,7 +17,7 @@ function AccountStats({ user_id }) {
 
   return (
     <>
-      <div className="m-auto mt-2 text-center py-3 px-12 bg-zinc-800 border border-zinc-700 rounded-lg">
+      <div className="m-auto mt-auto text-center py-3 px-12 rounded-lg">
         <div className="w-[250px] m-auto">
           {!isNaN(counter?.activity?.length) ? (
             <Heatmap counter={counter} />
@@ -48,7 +48,7 @@ function AccountStats({ user_id }) {
                 <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-bottom"></div>
               )}
             </div>
-            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover rounded-lg">
+            <button className="ml-2 py-0 px-4 bg-zinc-800 border border-[#0a0a0a] hover:border-myhover rounded-lg">
               Reset
             </button>
             <div>
@@ -64,7 +64,7 @@ function AccountStats({ user_id }) {
                 <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-bottom"></div>
               )}
             </div>
-            <button className="ml-1 py-0 px-4 bg-mydark border border-zinc-800 hover:border-myhover rounded-lg">
+            <button className="ml-2 py-0 px-4 bg-zinc-800 border border-[#0a0a0a] hover:border-myhover rounded-lg">
               Reset
             </button>
           </div>

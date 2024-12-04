@@ -35,7 +35,7 @@ function StatsTable({ counter, user_id }) {
         min.
         {!user_id && (
           <span
-            className="cursor-help absolute bottom-0.5 right-1.5"
+            className="cursor-help absolute bottom-1.5 right-7"
             title="Stats are stored in cookies. You can sign in to store them on the server and get additional statistics."
           >
             <span className="icon-[noto--cookie]"></span>

@@ -28,7 +28,7 @@ function StatsSection({ timerState, user_id }) {
       />
       {user_id ? (
         <div
-          className="absolute text-sm statsSection left-2 top-2 py-2 px-3 bg-zinc-800 border border-zinc-700 rounded-lg"
+          className="absolute text-sm statsSection left-2 top-2 py-2 px-3 rounded-lg"
           // title="Days in a row"
         >
           <div>
@@ -53,7 +53,7 @@ function StatsSection({ timerState, user_id }) {
             </button>
           ) : null}
           {/* <p>You&#39;ve held yourself:</p> You&#39;ve succeded: */}{' '}
-          <div className="py-2 px-4 bg-zinc-800 border border-zinc-700 rounded-lg relative">
+          <div className="py-2 px-4  rounded-lg relative">
             <p>Succesfully done nothing:</p>
             {!isNaN(counter.countToday) ? (
               <StatsTable counter={counter} user_id={user_id} />

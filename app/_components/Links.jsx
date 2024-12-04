@@ -3,7 +3,7 @@ import { UserIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Links({ user_id }) {
   return (
-    <div className="fixed right-2 top-2 text-center py-2 px-3 bg-zinc-800 text-sm leading-none border border-zinc-700 rounded-lg">
+    <div className="fixed right-2 top-2 text-center py-2 px-3 text-sm leading-none rounded-lg">
       <div className="grid auto-cols-auto gap-0 border-gray-300">
         {!user_id ? (
           <>

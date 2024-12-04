@@ -20,6 +20,9 @@
 }
 
 .react-calendar-heatmap-month-label {
+  color: white !important;
+  fill: rgb(219, 219, 219) !important;
+  font-family: inherit !important;
 }
 
 /*

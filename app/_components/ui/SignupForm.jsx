@@ -42,7 +42,7 @@ function SignupForm() {
   return (
     <>
       <main className="mx-auto w-min">
-        <div className="mt-2.5 pt-3 pb-3 px-6 bg-zinc-800 border border-zinc-700 rounded-lg">
+        <div className="mt-4 py-5 px-6 bg-zinc-800 border border-zinc-700 rounded-lg">
           <h1 className="text-3xl tracking-[-0.16px] text-zinc-50 font-bold mb-3 text-center">
             Sign Up
           </h1>
@@ -179,7 +179,7 @@ function SignupForm() {
               </GoogleButton>
             </form>
           </div>
-          <div className="text-center text-zinc-300 mb-0.5">
+          <div className="text-center text-zinc-300">
             Already have an account?{' '}
             <Link className="text-zinc-100 hover:text-zinc-200" href="/signin">
               Login
