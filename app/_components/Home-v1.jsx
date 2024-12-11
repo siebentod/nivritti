@@ -36,10 +36,6 @@ function Home({ children, user_id }) {
   const [time, setTime] = useState(null);
   const intervalRef = useRef(null);
   const [timerState, setTimerState] = useState(null);
-
-  const timerStateRef = useRef(timerState);
-  const timeouts = useRef({ timeoutColor: null, timeoutTime: null });
-
   const [color, setColor] = useState('whitesmoke');
 
   const [currentTimer, setCurrentTimer] = useState(null); // выбранный таймер
@@ -47,10 +43,6 @@ function Home({ children, user_id }) {
 
   // const [mode, setMode] = useState('triangle');
   const [isFocused, setIsFocused] = useState(true);
-
-  useEffect(() => {
-    timerStateRef.current = timerState;
-  }, [timerState]);
 
   const fetchAndProcessData = useCallback(
     async function (user_id) {
@@ -139,7 +131,7 @@ function Home({ children, user_id }) {
       router.replace('/');
   }, [cookiesHandeled, router, searchParams]);
 
-  function startTimer(duration) {
+  const startTimer = useCallback((duration) => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -149,9 +141,7 @@ function Home({ children, user_id }) {
     intervalRef.current = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime >= 0) {
-          if (timerStateRef.current !== 'paused') {
-            return prevTime - 1;
-          } else return prevTime;
+          return prevTime - 1;
         } else {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
@@ -160,7 +150,14 @@ function Home({ children, user_id }) {
         }
       });
     }, 1000);
-  }
+  }, []);
+
+  const stopTimer = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -171,39 +168,23 @@ function Home({ children, user_id }) {
   }, []);
 
   useEffect(() => {
-    function handleMouseEvent(toPause) {
-      if (timerState === 'inProcess' || timerState === 'paused') {
+    const handleMouseLeave = () => {
+      if (timerState === 'inProcess') {
+        stopTimer();
         setColor('#1a1a1a');
-        setTimerState('paused');
-
-        clearTimeout(timeouts.current.timeoutColor);
-        clearTimeout(timeouts.current.timeoutTime);
-
-        timeouts.current.timeoutColor = setTimeout(() => {
-          setColor('whitesmoke');
-        }, 2500);
-        timeouts.current.timeoutTime = setTimeout(() => {
-          setTimerState('inProcess');
-        }, 2000);
-
-        if (toPause) {
-          console.log('toPause');
-          clearTimeout(timeouts.current.timeoutColor);
-          clearTimeout(timeouts.current.timeoutTime);
-        }
-        if (!toPause) {
-          console.log('unPause');
-        }
-
-        return () => {
-          clearTimeout(timeouts.current.timeoutColor);
-          clearTimeout(timeouts.current.timeoutTime);
-        };
       }
-    }
+    };
 
-    const handleMouseMove = () => handleMouseEvent(false);
-    const handleMouseLeave = () => handleMouseEvent(true);
+    const handleMouseMove = () => {
+      if (timerState === 'inProcess') {
+        startTimer(currentTimer);
+        setColor('#1a1a1a');
+        const timeoutId = setTimeout(() => {
+          setColor('whitesmoke');
+        }, 1000);
+        return () => clearTimeout(timeoutId);
+      }
+    };
 
     const el = document.querySelector('main');
     window.addEventListener('mousemove', handleMouseMove);
@@ -227,17 +208,17 @@ function Home({ children, user_id }) {
       el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('blur', handleMouseLeave);
     };
-  }, [timerState]);
+  }, [timerState, currentTimer, startTimer, stopTimer]);
 
-  async function inputHandle(e) {
+  const inputHandle = (e) => {
     e.preventDefault();
     if (manualTime > 0) {
       setCurrentTimer(manualTime * 60);
       startTimer(manualTime * 60);
     }
-  }
+  };
 
-  async function handleSaveCounter() {
+  const handleSaveCounter = async () => {
     setTimerState('saving');
     let singulars;
     let totals;
@@ -269,7 +250,7 @@ function Home({ children, user_id }) {
       );
     }
     setTimerState('saved');
-  }
+  };
 
   return (
     <>
@@ -290,7 +271,7 @@ function Home({ children, user_id }) {
         }}
       />
       <main className={`grid h-full relative`}>
-        {timerState !== 'inProcess' && timerState !== 'paused' && (
+        {timerState !== 'inProcess' && (
           <>
             {children}
             <StatsSection timerState={timerState} user_id={user_id} />
@@ -303,13 +284,14 @@ function Home({ children, user_id }) {
         <TimerSection
           color={color}
           timerState={timerState}
+          setTimerState={setTimerState}
           time={time}
           currentTimer={currentTimer}
           user_id={user_id}
           handleSaveCounter={handleSaveCounter}
         />
 
-        {timerState !== 'inProcess' && timerState !== 'paused' && (
+        {timerState !== 'inProcess' && (
           <TimeButtons
             manualTime={manualTime}
             setManualTime={setManualTime}

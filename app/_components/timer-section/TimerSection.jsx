@@ -36,7 +36,7 @@ function TimerSection({
         className={`timer text-7xl ${fontText.className}`}
         style={timerColor}
       >
-        {timerState === 'inProcess' ? (
+        {timerState === 'inProcess' || timerState === 'paused' ? (
           <p className="time text-7xl select-none">{finalTime(time)}</p>
         ) : timerState === 'completed' ||
           timerState === 'saved' ||
