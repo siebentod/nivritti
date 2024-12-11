@@ -38,7 +38,9 @@ function TimerSection({
       >
         {timerState === 'inProcess' ? (
           <p className="time text-7xl select-none">{finalTime(time)}</p>
-        ) : timerState === 'completed' || timerState === 'saved' ? (
+        ) : timerState === 'completed' ||
+          timerState === 'saved' ||
+          timerState === 'saving' ? (
           currentTimer === 300 ? (
             brahmaSatyam
           ) : currentTimer === 180 ? (
