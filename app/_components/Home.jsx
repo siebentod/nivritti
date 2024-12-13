@@ -257,7 +257,6 @@ function Home({ children, user_id }) {
     } else {
       ({ singulars, totals } = await updateData(mins, user_id));
       const activity = isLeapYear ? totals.activity_leap : totals.activity;
-      setCurrentTimer(totals.last_timer_used);
       setCounter(
         getDataNumbers(
           singulars,

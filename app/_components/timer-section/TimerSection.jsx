@@ -20,7 +20,6 @@ function TimerSection({
 
   const timerColor = {
     color: color,
-    // transition: color === '#1a1a1a' ? 'none' : 'color 1s ease-in',
     transition:
       color === '#1a1a1a' ? 'none' : 'color 1.5s cubic-bezier(0.3, 0, 1, 1)',
   };
