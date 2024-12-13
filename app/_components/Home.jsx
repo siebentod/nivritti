@@ -181,7 +181,7 @@ function Home({ children, user_id }) {
 
         timeouts.current.timeoutColor = setTimeout(() => {
           setColor('whitesmoke');
-        }, 2500);
+        }, 1000);
         timeouts.current.timeoutTime = setTimeout(() => {
           setTimerState('inProcess');
         }, 2000);
