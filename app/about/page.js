@@ -36,6 +36,16 @@ export default function Page() {
             .
           </li>
           <li>
+            Audiofiles are taken from{' '}
+            <a
+              href="https://freesound.org"
+              className="underline underline-offset-2 hover:text-[#c2c9d6]"
+            >
+              freesound.org
+            </a>
+            , all of them are under CC0 license.
+          </li>
+          <li>
             Github
             <FaGithub className="text-xs ml-0.5 align-baseline inline-block" />:{' '}
             <a

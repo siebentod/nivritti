@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/solid';
 
 import './Home.scss';
 import TimeButtons from './timer-section/TimeButtons';
@@ -20,9 +21,8 @@ import { processFetchedTotals } from '../_utils/processFetchedTotals';
 import { getDataNumbers } from '../_utils/notcookies';
 import { createTotalsAndSingularsFromCookies } from '../_utils/createTotalsAndSingularsFromCookies';
 import { isLeapYear } from '../_utils/arrayOfZeros';
-// import { set } from 'react-hook-form';
-// import { getDataNumbers } from '../_utils/notcookies';
-// import { usePageStore } from '../_lib/store';
+
+const userAudioEnabled = true; //todo
 
 function Home({ children, user_id }) {
   const counter = usePageStore((state) => state.counter);
@@ -47,6 +47,9 @@ function Home({ children, user_id }) {
 
   // const [mode, setMode] = useState('triangle');
   const [isFocused, setIsFocused] = useState(true);
+
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     timerStateRef.current = timerState;
@@ -156,6 +159,7 @@ function Home({ children, user_id }) {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
           setTimerState('completed');
+          audioRef.current.pause();
           return 0;
         }
       });
@@ -270,6 +274,25 @@ function Home({ children, user_id }) {
     setTimerState('saved');
   }
 
+  const submitHandle = function (e) {
+    e.preventDefault();
+    setIsFocused(false);
+    inputHandle(e);
+    if (userAudioEnabled) audioRef.current.play();
+    setIsPlaying(true);
+  };
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <>
       <Toaster
@@ -288,6 +311,39 @@ function Home({ children, user_id }) {
           },
         }}
       />
+
+      {timerState === 'paused' && (
+        <button
+          onClick={toggleAudio}
+          className="absolute top-2 left-2 cursor-pointer z-10"
+        >
+          {isPlaying ? (
+            <SpeakerWaveIcon height={20} />
+          ) : (
+            <SpeakerXMarkIcon height={20} />
+          )}
+        </button>
+      )}
+      {timerState !== 'inProcess' && timerState !== 'paused' && (
+        <button
+          onClick={toggleAudio}
+          className="absolute bottom-2 right-2 cursor-pointer z-10"
+        >
+          {isPlaying ? (
+            <SpeakerWaveIcon height={20} />
+          ) : (
+            <SpeakerXMarkIcon height={20} />
+          )}
+        </button>
+      )}
+      <audio
+        ref={audioRef}
+        src="/fire free 9.0.mp3"
+        loop
+        preload="auto"
+        className="hidden"
+      />
+
       <main className={`grid h-full relative`}>
         {timerState !== 'inProcess' && timerState !== 'paused' && (
           <>
@@ -318,6 +374,8 @@ function Home({ children, user_id }) {
             startTimer={startTimer}
             isFocused={isFocused}
             cookiesHandeled={cookiesHandeled}
+            timerState={timerState}
+            submitHandle={submitHandle}
           />
         )}
       </main>
@@ -328,7 +386,7 @@ function Home({ children, user_id }) {
           </div>
         </div>
       </div> */}
-      <div className="circle" />
+      {/* <div className="circle" /> */}
     </>
   );
 }

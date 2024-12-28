@@ -9,7 +9,9 @@ lerna-debug.log*
 *.wav
 *.aiff
 *.mp3
+!fire free 9.0.mp3
 *.flac
+*.aup3
 
 node_modules
 dist

@@ -2,9 +2,9 @@ function TimeButtons({
   manualTime,
   setManualTime,
   setIsFocused,
-  inputHandle,
   isFocused,
   cookiesHandeled,
+  submitHandle,
 }) {
   const dec = function () {
     if (manualTime > 1) setManualTime((count) => count - 1);
@@ -12,12 +12,6 @@ function TimeButtons({
 
   const inc = function () {
     setManualTime((count) => count + 1);
-  };
-
-  const submitHandle = function (e) {
-    e.preventDefault();
-    setIsFocused(false);
-    inputHandle(e);
   };
 
   return (
