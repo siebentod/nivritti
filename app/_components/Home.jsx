@@ -167,14 +167,9 @@ function Home({ children, user_id }) {
   }
 
   useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, []);
+    // Переменная для отслеживания состояния мыши внутри сайта
+    let isMouseInside = false;
 
-  useEffect(() => {
     function handleMouseEvent(toPause) {
       if (timerState === 'inProcess' || timerState === 'paused') {
         setColor('#1a1a1a');
@@ -183,20 +178,22 @@ function Home({ children, user_id }) {
         clearTimeout(timeouts.current.timeoutColor);
         clearTimeout(timeouts.current.timeoutTime);
 
+        // Таймеры для изменения цвета и состояния
         timeouts.current.timeoutColor = setTimeout(() => {
-          setColor('whitesmoke');
+          if (isMouseInside && document.visibilityState === 'visible') {
+            setColor('whitesmoke');
+          }
         }, 1000);
+
         timeouts.current.timeoutTime = setTimeout(() => {
-          setTimerState('inProcess');
+          if (isMouseInside && document.visibilityState === 'visible') {
+            setTimerState('inProcess');
+          }
         }, 2000);
 
         if (toPause) {
-          console.log('toPause');
           clearTimeout(timeouts.current.timeoutColor);
           clearTimeout(timeouts.current.timeoutTime);
-        }
-        if (!toPause) {
-          console.log('unPause');
         }
 
         return () => {
@@ -206,8 +203,24 @@ function Home({ children, user_id }) {
       }
     }
 
-    const handleMouseMove = () => handleMouseEvent(false);
-    const handleMouseLeave = () => handleMouseEvent(true);
+    const handleMouseMove = () => {
+      isMouseInside = true;
+      handleMouseEvent(false);
+    };
+
+    const handleMouseLeave = () => {
+      isMouseInside = false;
+      handleMouseEvent(true);
+    };
+
+    // Проверка видимости вкладки
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        handleMouseEvent(true); // Пауза при переключении вкладки
+      } else if (document.visibilityState === 'visible' && isMouseInside) {
+        handleMouseEvent(false); // Возобновление только если мышь внутри
+      }
+    };
 
     const el = document.querySelector('main');
     window.addEventListener('mousemove', handleMouseMove);
@@ -216,9 +229,8 @@ function Home({ children, user_id }) {
     window.addEventListener('wheel', handleMouseMove);
     window.addEventListener('touchstart', handleMouseMove);
     window.addEventListener('touchmove', handleMouseMove);
-    window.addEventListener('visibilitychange', handleMouseMove);
+    window.addEventListener('visibilitychange', handleVisibilityChange); // Отслеживание видимости вкладки
     el.addEventListener('mouseleave', handleMouseLeave);
-    el.addEventListener('blur', handleMouseLeave);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -227,9 +239,8 @@ function Home({ children, user_id }) {
       window.removeEventListener('wheel', handleMouseMove);
       window.removeEventListener('touchstart', handleMouseMove);
       window.removeEventListener('touchmove', handleMouseMove);
-      window.removeEventListener('visibilitychange', handleMouseMove);
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
       el.removeEventListener('mouseleave', handleMouseLeave);
-      el.removeEventListener('blur', handleMouseLeave);
     };
   }, [timerState]);
 
