@@ -26,21 +26,13 @@ function StatsSection({ timerState, user_id }) {
         handleYesModal={handleYesModal}
         closeModal={closeModal}
       />
-      {user_id ? (
-        <div
-          className="absolute text-sm statsSection left-2 top-2 py-2 px-3 rounded-lg"
-          // title="Days in a row"
-        >
+      {user_id && !isNaN(counter.streak) && (
+        <div className="absolute text-sm statsSection left-2 top-2 py-2 px-3 rounded-lg">
           <div>
-            Days in a row:{' '}
-            {!isNaN(counter.streak) ? (
-              <span className="text-yellow">{counter.streak}</span>
-            ) : (
-              <div className="skeleton h-4 w-3 inline-block bg-zinc-700 rounded-sm align-text-top"></div>
-            )}
+            Days in a row: <span className="font-bold">{counter.streak}</span>
           </div>
         </div>
-      ) : null}
+      )}
       <div className="absolute text-sm statsSection left-2 bottom-2">
         <div>
           {!user_id &&
@@ -54,7 +46,6 @@ function StatsSection({ timerState, user_id }) {
           ) : null}
           {/* <p>You&#39;ve held yourself:</p> You&#39;ve succeded: */}{' '}
           <div className="py-2 px-4  rounded-lg relative">
-            <p>Succesfully done nothing:</p>
             {!isNaN(counter.countToday) ? (
               <StatsTable counter={counter} user_id={user_id} />
             ) : (

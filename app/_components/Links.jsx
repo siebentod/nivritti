@@ -1,55 +1,52 @@
 import Link from 'next/link';
 import { UserIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Links({ user_id }) {
   return (
-    <div className="fixed right-2 top-2 text-center py-2 px-3 text-sm leading-none rounded-lg">
-      <div className="grid auto-cols-auto gap-0 border-gray-300">
-        {!user_id ? (
-          <>
-            <div className="flex">
-              <div className="border-b pb-1 border-gray-300 px-1 text-center">
-                <Link
-                  className="hover:text-zinc-200 active:text-zinc-400 flex gap-0.5 justify-center"
-                  href="/signin"
-                >
+    <div className="fixed right-2 top-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <UserIcon className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {!user_id ? (
+            <>
+              <DropdownMenuItem asChild>
+                <Link href="/signin" className="w-full">
                   Login
                 </Link>
-              </div>
-              <div className="border-b pb-1 border-gray-300 text-center">
-                <UserIcon height={14} />
-              </div>
-              <div className="border-b pb-1 border-gray-300 px-0.5 pl-1 text-center">
-                <Link
-                  className="hover:text-zinc-200 active:text-zinc-400 flex gap-0.5 justify-center"
-                  href="/signup"
-                >
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/signup" className="w-full">
                   Register
                 </Link>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="pb-1 col-span-2 border-b border-gray-300 text-center">
-            <Link
-              className="hover:text-zinc-200 active:text-zinc-400 flex gap-1 justify-center"
-              href="/account"
-            >
-              Account
-              <UserIcon height={14} />
+              </DropdownMenuItem>
+            </>
+          ) : (
+            <DropdownMenuItem asChild>
+              <Link href="/account" className="w-full flex items-center gap-2">
+                Account
+                <UserIcon className="h-4 w-4" />
+              </Link>
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuItem asChild>
+            <Link href="/about" className="w-full flex items-center gap-2">
+              About
+              <InformationCircleIcon className="h-4 w-4" />
             </Link>
-          </div>
-        )}
-        <div className="pt-[3px] col-span-2 text-center">
-          <Link
-            className="hover:text-zinc-200 active:text-zinc-400 flex gap-1 justify-center"
-            href="/about"
-          >
-            About
-            <InformationCircleIcon height={14} />
-          </Link>
-        </div>
-      </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
