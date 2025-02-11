@@ -4,7 +4,7 @@ function BackButton() {
   return (
     <>
       <Link
-        className="absolute left-2 top-4 inline-flex items-center justify-center h-10 gap-0 pl-2 pr-4 text-sm font-semibold transition duration-200 ease-in-out select-none py-1 px-3 rounded-full disabled:hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-70 md:left-6 bg-mydark focus:outline-1 focus:outline-[#222c35] hover:shadow-[0_0_0_1px_#292929]"
+        className="z-30 absolute left-2 top-4 inline-flex items-center justify-center h-10 gap-0 pl-2 pr-4 text-sm font-semibold transition duration-200 ease-in-out select-none py-1 px-3 rounded-full disabled:hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-70 md:left-6 bg-mydark focus:outline-1 focus:outline-[#222c35] hover:shadow-[0_0_0_1px_#292929]"
         href="./"
       >
         <span className="text-[#70757E]">
